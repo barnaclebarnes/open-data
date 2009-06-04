@@ -1,0 +1,99 @@
+/**
+ * This file is part of Deko Boko. Please see the DekoBoko.php file for
+ * copyright and license information.
+ *
+ * @author Michael Toppa
+ * @version 1.2.1
+ * @package DekoBoko
+ */
+
+/* Styling for error messages */
+.dekoboko_errors {
+    color: Red;
+}
+
+/* Styling for the success message div */
+.dekoboko_success {
+}
+
+/* Styling for the form */
+#dekoboko_form fieldset {
+    float: left;
+    clear: left;
+    width: 100%;
+    border: none;
+}
+
+#dekoboko_form legend {
+    color: #000000;
+    font-weight: bold;
+}
+
+#dekoboko_form fieldset ol {
+    list-style: none;
+}
+
+#dekoboko_form fieldset li {
+    float: left;
+    clear: left;
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+#dekoboko_form label {
+    /* float: left; */
+    width: 100px;
+    margin-right: 5px;
+    text-align: right;
+}
+
+/* for some reason FF3 needs the !important flags */
+#dekoboko_end {
+    float: none !important;
+    width: auto !important;
+    border: none !important;
+}
+
+#dekoboko_submit {
+    /* IE puts extra space around submit buttons if left to its own devices
+    - best way to handle the positioning is to position the button directly
+    (instead of putting a margin on the containing fieldset)  */
+    margin-left: 150px !important;
+}
+
+/**
+ * ---- START reCaptcha widget color classes
+ * You must activate the "clean" theme in the DekoBoko settings for these to
+ * take effect. You also need to uncomment each one, as they otherwise cause
+ * problems for the other reCaptcha themes. Substitute your own colors for the
+ * #FF0000 values below. A good guide to CSS colors is here:
+ * http://www.w3schools.com/css/css_colornames.asp
+ */
+
+/* reCaptcha widget background color */
+
+/*
+ .recaptchatable .recaptcha_image_cell, #recaptcha_table {
+    background-color:#FF0000 !important;
+}
+*/
+
+/* reCaptcha widget border color */
+
+/*
+#recaptcha_table {
+    border-color: #FF0000 !important;
+}
+*/
+
+/* Text input field border and background colors */
+
+/*
+#recaptcha_response_field {
+    border-color: #FF0000 !important;
+    background-color:#FF0000 !important;
+}
+*/
+
+/* ---- END reCaptcha widget color classes */

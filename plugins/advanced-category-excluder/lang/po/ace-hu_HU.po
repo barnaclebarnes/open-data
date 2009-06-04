@@ -1,0 +1,223 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Category Excluder 1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-02 20:58+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: DjZoNe <djz@djz.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+
+#: advanced-category-excluder.php:209
+msgid "ACE"
+msgstr "ACE"
+
+#: advanced-category-excluder.php:214
+#: main.php:62
+msgid "Settings"
+msgstr "Beállítások"
+
+#: advanced-category-excluder.php:215
+#: pages/categories.php:83
+#: pages/categories.php:97
+#: pages/categories_old.php:84
+#: widgets/categories.php:123
+msgid "Categories"
+msgstr "Kategóriák"
+
+#: advanced-category-excluder.php:216
+#: pages/tags.php:2
+msgid "Tags"
+msgstr "Cimkék"
+
+#: advanced-category-excluder.php:217
+msgid "Plugins homepage"
+msgstr "Bővítmény holnapja"
+
+#: advanced-category-excluder.php:217
+msgid "Plugin homepage"
+msgstr "Bővítmény holnapja"
+
+#: advanced-category-excluder.php:245
+msgid "Archive"
+msgstr "Archívum"
+
+#: advanced-category-excluder.php:245
+msgid "Home"
+msgstr "Főoldal"
+
+#: advanced-category-excluder.php:245
+msgid "RSS Posts"
+msgstr "Bejegyzések RSS"
+
+#: advanced-category-excluder.php:245
+msgid "RSS Comments"
+msgstr "Hozzászólások RSS"
+
+#: advanced-category-excluder.php:245
+msgid "Search"
+msgstr "Keresés"
+
+#: advanced-category-excluder.php:245
+msgid "Disable robots"
+msgstr "Robotok kikapcsolása"
+
+#: advanced-category-excluder.php:247
+msgid "Do you want the categories selected for <strong>Home</strong> section, to be hidden from <strong>category list</strong> as well?"
+msgstr "Szeretnéd, hogy a <strong>főoldalra</strong> beállított kategóriák a <strong>kategória listázásból</strong> is eltűnnének?"
+
+#: advanced-category-excluder.php:248
+msgid "Do you want the posts related to the categories selected for <strong>Home</strong> section to be <strong>only</strong> excluded from the <strong>sidebar widget</strong>s? (Recent Posts, Recent Commants, Calendar)"
+msgstr "Szeretnéd, hogy a <strong>főoldalra</strong> beállított kategóriák csak a widgetekből tűnjenek el? (Legutóbbi hozzászólások, Legutóbbi bejegyzések)"
+
+#: advanced-category-excluder.php:249
+msgid "Do you want the category lister, to list the empty categories?"
+msgstr "Szeretnéd a listában megjeleníteni az üres kategóriákat is?"
+
+#: advanced-category-excluder.php:250
+#, php-format
+msgid "Do you want to display Event Calendar default category in the <a href=\"%s\">Categories</a> tab?"
+msgstr "Szeretnéd megjeleníteni az Event Calendar alapértelmezett kategóriáját a <a href=\"%s\">kategóriák</a> fülön?"
+
+#: advanced-category-excluder.php:251
+msgid "Select a section to export excluded categories into <strong>XML Sitemap Generator</strong>:"
+msgstr "Válassz ki egy részt, amelynek a kivéltel listáját szeretnéd exportálni az <strong>XML Sitemap Generator</strong> bővítménybe:"
+
+#: main.php:5
+msgid "If you check this one, the categories you selected for Home section will be remove from the Category lister sidebar widget."
+msgstr "Ha ezt kiválasztod, akkor a főoldalhoz kiválasztott kategóriák a kategória listázó widgetből is el fognak tűnni."
+
+#: main.php:6
+msgid "If you select this, that will cause that your blog's Home page won't be affected, only your sidebar widgets."
+msgstr "Ha ezt kiválasztod, akkor a főoldaladat nem fogják érinteni a beállítások, csak a widgetjeidet."
+
+#: main.php:7
+msgid "This is an inside setting. If you check that, you can select empty categories for exclusion at ACE Dashboard -> Categories subpage"
+msgstr "Ez egy belső beállítás. Ha ezt kiválasztod, akkor az üres kategóriák is megjelennek a Kategóriák aloldalon."
+
+#: main.php:8
+msgid "If you select this, Event Calendars deafult category will be displayed at ACE Dashboard -> Categories subpage"
+msgstr "Ha ezt kiválasztod, akkor az Event Calendar alapértelmezett kategóriájais meg fog jelenni a Kategóriák aloldalon."
+
+#: main.php:9
+msgid "If you choose one of these sections, the categories selected for exclusion in that section, will be exported into <strong>XML Sitemap Generator</strong> settings. So those settings will directly affect your sitemap generating. This is handy for SEO."
+msgstr " Ha kiválasztasz egy részt, akkor ennek a részhez kiválasztott kategóriák is beállításra kerülnek az <strong>XML Sitemap Generator</strong> bővítmény kivétel listájában. Szóval a továbbiakban ennek a résznek a beállításai közvetlenül fogják érinteni az oldal térkép beállításaidat. Ez egészen hasznos SEO szempontból."
+
+#: main.php:58
+#: pages/categories.php:83
+#: pages/home.php:2
+msgid "Advanced Category Excluder"
+msgstr "Advanced Category Excluder"
+
+#: main.php:90
+msgid "None"
+msgstr "Nincs"
+
+#: main.php:104
+msgid "Save"
+msgstr "Mentés"
+
+#: main.php:111
+#: pages/categories.php:123
+msgid "Donate!"
+msgstr "Támogass minket!"
+
+#: main.php:115
+#: pages/categories.php:127
+#, php-format
+msgid "If you like this plugin, please make <a href=\"%s\" target=\"_blank\">a donation here</a>"
+msgstr "Ha tetszik ez a bővítmény, kérlek <a href=\"%s\" target=\"_blank\">adományozz egy keveset itt</a>"
+
+#: pages/categories.php:88
+msgid "Usage"
+msgstr "Működési tudnivalók"
+
+#: pages/categories.php:92
+#: pages/categories_old.php:87
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which categories would you like to hide."
+msgstr "Itt láthatod az oldal %s különböző részét. Mindegyikre meghatározhatod different sections on the site. You can define section by section which categories would you like to hide."
+
+#: pages/categories.php:116
+#: pages/categories_old.php:114
+msgid "Doit!"
+msgstr "Csináljuk!"
+
+#: pages/categories.php:117
+#: pages/categories_old.php:115
+msgid "Reset"
+msgstr "Reset"
+
+#: pages/home.php:6
+msgid "Homepages"
+msgstr "Weboldalaink"
+
+#: pages/tags.php:3
+msgid "Coming soon ;)"
+msgstr "Hamarosan ;)"
+
+#: pages/tags.php:4
+msgid "Stay updated!"
+msgstr "Mindig frissíts! ;)"
+
+#: widgets/categories.php:75
+#: widgets/recent-comments.php:74
+#: widgets/recent-posts.php:74
+msgid "Title:"
+msgstr "Címsor:"
+
+#: widgets/categories.php:83
+msgid "Show as dropdown"
+msgstr "Megjelenítés lenyíló listaként"
+
+#: widgets/categories.php:88
+msgid "Show post counts"
+msgstr "Bejegyzések számának mutatása"
+
+#: widgets/categories.php:93
+msgid "Show hierarchy"
+msgstr "Hierachikus mutatás"
+
+#: widgets/categories.php:147
+msgid "Select Category"
+msgstr "Kategória választás"
+
+#: widgets/recent-comments.php:80
+msgid "Number of comments to show:"
+msgstr "Hozzászólások száma:"
+
+#: widgets/recent-comments.php:83
+#: widgets/recent-posts.php:83
+msgid "(at most 15)"
+msgstr "(Legalább 15)"
+
+#: widgets/recent-comments.php:107
+msgid "Recent Comments"
+msgstr "Legutóbbi hozzászólások"
+
+#: widgets/recent-comments.php:236
+#, php-format
+msgid "%1$s on %2$s"
+msgstr "%1$s - %2$s"
+
+#: widgets/recent-posts.php:80
+msgid "Number of posts to show:"
+msgstr "Mutatandó bejegyzések száma:"
+
+#: widgets/recent-posts.php:107
+msgid "Recent Posts"
+msgstr "Legutóbbi bejegyzések"
+
+#~ msgid "Wipe out!"
+#~ msgstr "Ürítsd ki!"
+#~ msgid "ACE Categories"
+#~ msgstr "Kategóriák"
+#~ msgid "ACE Recent Comments"
+#~ msgstr "Friss hozzászólások"
+#~ msgid "ACE Recent Posts"
+#~ msgstr "Friss bejegyzések"
+

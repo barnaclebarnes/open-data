@@ -1,0 +1,333 @@
+# Copyright (C) 2005 Sewar : www.sewar.be
+# This file is distributed under the same license as the WordPress package.
+# Sewar <www.sewar.be/contact.php>, 2005.
+# $Id: sitemap.pot 2327 2005-06-19 03:09:59 RedAltExport $
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sitemap v2.7.1 for WP\n"
+"Report-Msgid-Bugs-To: <www.sewar.be/contact.php>\n"
+"POT-Creation-Date: 2005-06-15 00:00+0000\n"
+"PO-Revision-Date: 2006-01-02 12:25+0300\n"
+"Last-Translator: Sewar <sewar@sewar.be>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Sewar <www.sewar.be/contact.php>\n"
+"X-Poedit-Language: Arabic\n"
+"X-Poedit-Country: ARABIAN WORLD\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: sitemap.php:375
+msgid "always"
+msgstr "دائماً"
+
+msgid "hourly"
+msgstr "كل ساعة"
+
+msgid "daily"
+msgstr "يومياً"
+
+msgid "weekly"
+msgstr "اسبوعياً"
+
+msgid "monthly"
+msgstr "شهرياً"
+
+msgid "yearly"
+msgstr "سنوياً"
+
+msgid "never"
+msgstr "أبداً"
+
+msgid "Detected Path"
+msgstr "مسار الملف"
+
+msgid "Example"
+msgstr "مثال"
+
+msgid "Absolute or relative path to the sitemap file, including name."
+msgstr "المسار الكامل لملف خريطة الموقع."
+
+msgid "Complete URL to the sitemap file, including name."
+msgstr "الرابط الكامل لملف خريطة الموقع."
+
+msgid "Automatic location"
+msgstr "انشاء الرابط تلقائياً"
+
+msgid "Manual location"
+msgstr "تحديد الرابط يدوياً"
+
+msgid "OR"
+msgstr "أو"
+
+msgid "Location of your sitemap file"
+msgstr "مكان ملف خريطة موقعك"
+
+msgid "If your blog is in a subdirectory and you want to add pages which are NOT in the blog directory or beneath, you MUST place your sitemap file in the root directory (Look at the &quot;Location of your sitemap file&quot; section on this page)!"
+msgstr "إذا كانت مدونتك في مجلد فرعي و أردت إضافة صفحات خارج مجلد مدونتك، يجب عليك وضع ملف خريطة موقعك في المجلد الرئيسي لموقعك (انظر فسم &quot;مكان ملف خريطة موقعك&quot; في هذه الصفحة)"
+
+#: sitemap.php:512
+msgid "Configuration updated"
+msgstr "تم تحديث الإعدادات"
+
+#: sitemap.php:513
+msgid "Error"
+msgstr "حصل خطأ"
+
+#: sitemap.php:521
+msgid "A new page was added. Click on &quot;Save page changes&quot; to save your changes."
+msgstr "تم إضافة صفحة جديدة ، إضغط على زر &quotحفظ تغييرات الصفحات&quot; لحفظ تغييراتك ."
+
+#: sitemap.php:527
+msgid "Pages saved"
+msgstr "تم حفظ إعدادات الصفحات"
+
+#: sitemap.php:528
+msgid "Error while saving pages"
+msgstr "حدث خطأ عند حفظ إعدادات الصفحات"
+
+#: sitemap.php:539
+msgid "The page was deleted. Click on &quot;Save page changes&quot; to save your changes."
+msgstr "تم حذف الصفحة ."
+
+#: sitemap.php:542
+msgid "You changes have been cleared."
+msgstr "تم إلغاء تغييراتك ."
+
+#: sitemap.php:555
+#: sitemap.php:1002
+msgid "Sitemap Generator"
+msgstr "صانع خريطة الموقع"
+
+#: sitemap.php:558
+msgid "Manual rebuild"
+msgstr "إنشاء خريطة الموقع يدوياً"
+
+#: sitemap.php:559
+msgid "If you want to build the sitemap without editing a post, click on here!"
+msgstr "إذا كنت تريد إنشاء خريطة الموقع بدون تعديل تدوينة ، إضغط على الزر التالي :"
+
+#: sitemap.php:560
+msgid "Rebuild Sitemap"
+msgstr "إعادة إنشاء خريطة الموقع"
+
+#: sitemap.php:564
+msgid "Additional pages"
+msgstr "صفحات إضافية"
+
+#: sitemap.php:566
+msgid "Here you can specify files or URLs which should be included in the sitemap, but do not belong to your Blog/WordPress.<br />For example, if your domain is www.foo.com and your blog is located on www.foo.com/blog you might want to include your homepage at www.foo.com"
+msgstr "هنا يمكنك تضمين الملفات و الروابط التي يجب أن يتم تضمينها في خريطة الموقع، لكنها لا تتبع ووردبريس .<br />على سبيل المثال، إذا كان نطاق موقعك www.foo.com و مدونتك موجودة في www.foo.com/blog أنت قد تريد تضمين الصفحة الرئيسية لموقعك في www.foo.com."
+
+#: sitemap.php:568
+msgid "URL to the page"
+msgstr "رابط الصفحة"
+
+#: sitemap.php:569
+msgid "Enter the URL to the page. Examples: http://www.foo.com/index.html or www.foo.com/home "
+msgstr "ضع رابط الصفحة ، مثلاً : http://www.foo.com/index.html أو www.foo.com/home ."
+
+#: sitemap.php:571
+msgid "Priority"
+msgstr "الأفضلية"
+
+#: sitemap.php:572
+msgid "Choose the priority of the page relative to the other pages. For example, your homepage might have a higher priority than your imprint."
+msgstr "إختر أفضلية الصفحة نسبة إلى الصفحات الأخرى ، على سبيل المثال ، صفحتك الرئيسية لربّما يكون لها أفضلية أعلى من سيرتك الذاتية ."
+
+#: sitemap.php:574
+msgid "Last Changed"
+msgstr "آخر تعديل"
+
+#: sitemap.php:575
+msgid "Enter the date of the last change as YYYY-MM-DD (2005-12-31 for example) (optional)."
+msgstr "ضع تاريخ آخر تعديل كـ YYYY-MM-DD (مثلاً : 2005-12-31) (اختياري) ."
+
+#: sitemap.php:583
+msgid "Change Frequency"
+msgstr "فترة التحديث"
+
+#: sitemap.php:585
+msgid "#"
+msgstr "#"
+
+#: sitemap.php:609
+msgid "No pages defined."
+msgstr "لا يوجد صفحات مضافة ."
+
+#: sitemap.php:616
+msgid "Add new page"
+msgstr "أضف صفحة جديدة"
+
+# sitemap.php:617:
+#: sitemap.php:617
+msgid "Save page changes"
+msgstr "حفظ تغييرات الصفحات"
+
+# sitemap.php:618:
+#: sitemap.php:618
+msgid "Undo all page changes"
+msgstr "إلغاء جميع تغييرات الصفحات"
+
+# sitemap.php:621:
+#: sitemap.php:621
+msgid "Delete marked page"
+msgstr "حذف الصفحة المحددة"
+
+#: sitemap.php:627
+msgid "Basic Options"
+msgstr "إعدادات أساسية"
+
+#: sitemap.php:632
+msgid "Enable automatic priority calculation for posts based on comment count"
+msgstr "حساب الأفضلية للتدوينات بالإعتماد على عدد التعليقات ."
+
+#: sitemap.php:638
+msgid "Write debug comments"
+msgstr "كتابة تعليقات لتتبع الأخطاء"
+
+#: sitemap.php:643
+msgid "Filename of the sitemap file"
+msgstr "اسم ملف خريطة الموقع:"
+
+#: sitemap.php:650
+msgid "Write a normal XML file (your filename)"
+msgstr "كتابة ملف XML عادي (ملف خريطة الموقع)"
+
+#: sitemap.php:652
+msgid "Detected URL"
+msgstr "رابط الملف"
+
+#: sitemap.php:657
+msgid "Write a gzipped file (your filename + .gz)"
+msgstr "كتابة ملف XML مضغوط (ملف خريطة الموقع + .gz)"
+
+#: sitemap.php:664
+msgid "Auto-Ping Google Sitemaps"
+msgstr "تبليغ Google Sitemaps تلقائياً"
+
+#: sitemap.php:665
+msgid "This option will automatically tell Google about changes."
+msgstr "هذا الخيار سيخبر Google تلقائياً عن التغييرات ."
+
+#: sitemap.php:672
+msgid "Includings"
+msgstr "التضمينات"
+
+#: sitemap.php:677
+msgid "Include homepage"
+msgstr "تضمين الصفحة الرئيسية"
+
+#: sitemap.php:683
+msgid "Include posts"
+msgstr "تضمين التدوينات"
+
+#: sitemap.php:689
+msgid "Include static pages"
+msgstr "تضمين الصفحات"
+
+#: sitemap.php:695
+msgid "Include categories"
+msgstr "تضمين التصنيفات"
+
+#: sitemap.php:701
+msgid "Include archives"
+msgstr "تضمين الأرشيف"
+
+#: sitemap.php:708
+msgid "Change frequencies"
+msgstr "فترة التحديث"
+
+#: sitemap.php:709
+msgid "Note"
+msgstr "تنبيه"
+
+#: sitemap.php:710
+msgid "Please note that the value of this tag is considered a hint and not a command. Even though search engine crawlers consider this information when making decisions, they may crawl pages marked \"hourly\" less frequently than that, and they may crawl pages marked \"yearly\" more frequently than that. It is also likely that crawlers will periodically crawl pages marked \"never\" so that they can handle unexpected changes to those pages."
+msgstr "رجاء لاحظ بأنّ قيمة هذه الخاصية هي تلميح معتبر و ليس إجبارياً . بالرغم من أنّ محركات البحث تقرأ هذه الخاصية عندما تبحث ، هي قد تفحص الصفحات التي أشّرت \"كل ساعة\" أقل كثيرا من ذلك ،  وهي قد تفحص الصفحات التي أشّرت \"سنوياً\" أكثر من ذلك . هي أيضا من المحتمل تفحص الصفحات التي أشّرت \"أبداً\" بشكل دوري لكي هم يمكن أن يعالجوا التغييرات الغير المتوقّعة في تلك الصفحات ."
+
+#: sitemap.php:715
+msgid "Homepage"
+msgstr "الصفحة الرئيسية"
+
+#: sitemap.php:721
+msgid "Posts"
+msgstr "التدوينات"
+
+#: sitemap.php:727
+msgid "Static pages"
+msgstr "الصفحات"
+
+#: sitemap.php:733
+msgid "Categories"
+msgstr "التصنيفات"
+
+#: sitemap.php:739
+msgid "The current archive of this month (Should be the same like your homepage)"
+msgstr "أرشيف الشهر الحالي (يفضل أن يكون مثل الصفحة الرئيسية)"
+
+#: sitemap.php:745
+msgid "Older archives (Changes only if you edit an old post)"
+msgstr "الأرشيف السابق (يتغير عندما تحرر تدوينة قديمة فقط)"
+
+#: sitemap.php:752
+msgid "Priorities"
+msgstr "الأفضليات"
+
+#: sitemap.php:763
+msgid "Posts (If auto calculation is disabled)"
+msgstr "التدوينات (إذا كان الحساب الآلي غير مفعل)"
+
+#: sitemap.php:769
+msgid "Minimum post priority (Even if auto calculation is enabled)"
+msgstr "أفضلية التدوينة الدنيا (حتى إذا كان الحساب الآلي مفعل)"
+
+#: sitemap.php:787
+msgid "Archives"
+msgstr "الأرشيف"
+
+#: sitemap.php:793
+msgid "Informations and support"
+msgstr "المساعدة و الدعم الفني"
+
+#: sitemap.php:794
+msgid "Check %s for updates and comment there if you have any problems / questions / suggestions."
+msgstr "زر %s للتحديثات و التعليق هناك إذا كان لديك أي مشاكل أو أسئلة أو إقتراحات ."
+
+#: sitemap.php:797
+msgid "Update options"
+msgstr "تحديث الإعدادات"
+
+#: sitemap.php:1002
+msgid "Sitemap"
+msgstr "خريطة الموقع"
+
+#: sitemap.php:1033
+msgid "URL:"
+msgstr "الرابط :"
+
+#: sitemap.php:1034
+msgid "Path:"
+msgstr "المسار :"
+
+#: sitemap.php:1037
+msgid "Could not write into %s"
+msgstr "لم يتم الكتابة في %s"
+
+#: sitemap.php:1048
+msgid "Successfully built sitemap file:"
+msgstr "تم إنشاء ملف الخريطة بنجاح :"
+
+#: sitemap.php:1048
+msgid "Successfully built gzipped sitemap file:"
+msgstr "تم إنشاء ملف الخريطة المضغوط بنجاح :"
+
+#: sitemap.php:1062
+msgid "Could not ping to Google at %s"
+msgstr "لم يتم تبليغ Google على %s"
+
+#: sitemap.php:1064
+msgid "Successfully pinged Google at %s"
+msgstr "تم تبليغ Google بنجاح على %s"
+

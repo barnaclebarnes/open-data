@@ -1,0 +1,291 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Category Excluder\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-01 05:30+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: DjZoNe <djz@djz.hu>\n"
+"Language-Team:  <djz@djz.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e;_c\n"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:45
+#, php-format
+msgid "It seems <strong>ACE plugin</strong> is just upgraded to the latest version %1$s. Please <strong>review the changes</strong> at our homepage <a href=\"%2$s\" target=\"_blank\">%2$s</a>"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:270
+msgid "ACE"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:275
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:71
+msgid "Settings"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:276
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:83
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:47
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:61
+msgid "Categories"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:277
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:51
+msgid "Pages"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:278
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:52
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:51
+msgid "Links"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:279
+msgid "Link categories"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:280
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/tags.php:2
+msgid "Tags"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:281
+msgid "Plugins homepage"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:281
+msgid "Plugin homepage"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "Archive"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "Home"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "RSS Posts"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "RSS Comments"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "Search"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "Single Posts"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:309
+msgid "Disable robots"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:312
+msgid "Do you want the categories selected for <strong>Home</strong> section, to be hidden from <strong>category list</strong> as well?"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:313
+msgid "Do you want the posts related to the categories selected for <strong>Home</strong> section to be <strong>only</strong> excluded from the <strong>sidebar widget</strong>s? (Recent Posts, Recent Commants, Calendar)"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:314
+msgid "Do you want the category lister, to list the empty categories?"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:315
+#, php-format
+msgid "Do you want to display Event Calendar default category in the <a href=\"%s\">Categories</a> tab?"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:316
+msgid "What <strong>exclusion method</strong> do you want to use in recent comments / recent posts <strong>widgets</strong>?"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:317
+msgid "Select a section to export excluded categories into <strong>XML Sitemap Generator</strong>:"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:321
+msgid "This means, what widgets shows on the front shows everywhere on the site, exept when listing an excluded category, reading a post that is in an excluded category, or meet with another rule (archive, search). In that case the related comments/posts from that category will be shown as well. This method is introduced in ACE 1.3."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:322
+msgid "This means, that the widgets displays what they would on the front. No exeption."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:323
+msgid "This means widget always using the actualy exclusion rules, depends on what part of the page you are browsing. It could be different on the front, in the search and in the archive"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/advanced-category-excluder.php:324
+msgid "No exclusion in widgets"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:5
+msgid "If you check this one, the categories you selected for Home section will be remove from the Category lister sidebar widget."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:6
+msgid "If you select this, that will cause that your blog's Home page won't be affected, only your sidebar widgets."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:7
+msgid "This is an inside setting. If you check that, you can select empty categories for exclusion at ACE Dashboard -> Categories subpage"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:8
+msgid "If you select this, Event Calendars deafult category will be displayed at ACE Dashboard -> Categories subpage"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:9
+msgid "Please choose an exclusion method for the widgets."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:10
+msgid "If you choose one of these sections, the categories selected for exclusion in that section, will be exported into <strong>XML Sitemap Generator</strong> settings. So those settings will directly affect your sitemap generating. This is handy for SEO."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:67
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:83
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/home.php:2
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:52
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:51
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:51
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:47
+msgid "Advanced Category Excluder"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:98
+msgid "None"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:130
+msgid "Save"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:137
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:125
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:94
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:93
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:93
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:89
+msgid "Donate!"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/main.php:141
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:129
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:98
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:97
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:97
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:93
+#, php-format
+msgid "If you like this plugin, please make <a href=\"%s\" target=\"_blank\">a donation here</a>"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:88
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:57
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:56
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:56
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:52
+msgid "Usage"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:92
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:60
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:56
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which categories would you like to hide."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:97
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:66
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:65
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:65
+msgid "Sections"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:118
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:87
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:86
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:86
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:82
+msgid "Doit!"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/categories.php:119
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:88
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:87
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/pages.php:87
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/page_sections.php:83
+msgid "Reset"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/home.php:6
+msgid "Homepages"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/links.php:61
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which links would you like to hide."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/link_categories.php:60
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which link categories would you like to hide."
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/tags.php:3
+msgid "Coming soon ;)"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/pages/tags.php:4
+msgid "Stay updated!"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/calendar.php:64
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/recent-comments.php:74
+msgid "Title:"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/calendar.php:178
+msgid "Calendar"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/calendar.php:179
+#, php-format
+msgid "%1$s %2$s|Used as a calendar caption"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/calendar.php:203
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/calendar.php:213
+#, php-format
+msgid "View posts for %1$s %2$s"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/recent-comments.php:80
+msgid "Number of comments to show:"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/recent-comments.php:83
+msgid "(at most 15)"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/recent-comments.php:107
+msgid "Recent Comments"
+msgstr ""
+
+#: D:\!SVN\advanced-category-excluder\tags\1.4/widgets/recent-comments.php:268
+#, php-format
+msgid "%1$s on %2$s"
+msgstr ""
+

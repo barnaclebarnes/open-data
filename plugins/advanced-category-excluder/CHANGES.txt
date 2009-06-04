@@ -1,0 +1,4 @@
+2009. 05. 12. - DjZoNe
+1.4.3:
+    - removed "$force == 1" 
+    - removed "getarchives_join" filter

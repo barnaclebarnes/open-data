@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Category Excluder 1.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-11 14:27+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Mikael Jorhult <mikael@mishkin.se>\n"
+"Language-Team: mishkin.se <mikael@mishkin.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: Sweden\n"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2/advanced-category-excluder.php:15
+msgid "Archive"
+msgstr "Arkiv"
+
+#: advanced-category-excluder.php:15
+msgid "Home"
+msgstr "Hem"
+
+#: advanced-category-excluder.php:15
+msgid "RSS Posts"
+msgstr "RSS Inlägg"
+
+#: advanced-category-excluder.php:15
+msgid "RSS Comments"
+msgstr "RSS Kommentarer"
+
+#: advanced-category-excluder.php:15
+msgid "Search"
+msgstr "Sök"
+
+#: advanced-category-excluder.php:17
+msgid "Do you want the categories selected for <strong>Home</strong> section, to be hidden from category list as well?"
+msgstr "Vill du att kategorierna som är valda för <strong>Hem</strong> ska döljas i kategorilistan?"
+
+#: advanced-category-excluder.php:18
+msgid "Do you want the category lister, to list the empty categories?"
+msgstr "Vill du att kategorilistan även ska innehålla tomma kategorier?"
+
+#: advanced-category-excluder.php:19
+msgid "Do you want to display Event Calendar default category in the <a href=\""
+msgstr "Vill du visa Events Calendar standardkategori i <href=\""
+
+#: advanced-category-excluder.php:229
+msgid "ACE"
+msgstr "ACE"
+
+#: advanced-category-excluder.php:234
+#: D:\!SVN\advanced-category-excluder\tags\1.2/main.php:13
+msgid "Settings"
+msgstr "Inställningar"
+
+#: advanced-category-excluder.php:235
+#: D:\!SVN\advanced-category-excluder\tags\1.2/pages/categories.php:90
+msgid "Categories"
+msgstr "Kategorier"
+
+#: advanced-category-excluder.php:236
+#: D:\!SVN\advanced-category-excluder\tags\1.2/pages/tags.php:2
+msgid "Tags"
+msgstr "Etiketter"
+
+#: advanced-category-excluder.php:237
+msgid "Plugins homepage"
+msgstr "Tilläggens hemsida"
+
+#: advanced-category-excluder.php:237
+msgid "Plugin homepage"
+msgstr "Tilläggets hemsida"
+
+#: /pages/categories.php:93
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which categories would you like to hide."
+msgstr "Det finns %s olika delar på webbplatsen. Du kan för varje del välja vilka kategorier som ska döljas."
+
+#: /pages/categories.php:119
+msgid "Doit!"
+msgstr "Gör det!"
+
+#: /pages/categories.php:120
+msgid "Wipe out!"
+msgstr "Sudda ut!"
+
+#: /pages/home.php:2
+msgid "Homepages"
+msgstr "Hemsidor"
+
+#: /pages/tags.php:3
+msgid "Coming soon ;)"
+msgstr "Kommer snart"
+
+#: /pages/tags.php:4
+msgid "Stay updated!"
+msgstr "Håll utkik!"
+

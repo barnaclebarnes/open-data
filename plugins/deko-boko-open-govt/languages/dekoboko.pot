@@ -1,0 +1,304 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-12 07:49-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: DekoBoko.php:194
+msgid ""
+"Deko Boko has been uninstalled. You can now deactivate Deko Boko on your "
+"plugins management page."
+msgstr ""
+
+#: DekoBoko.php:198
+msgid "Uninstall of Deko Boko failed. Database error:"
+msgstr ""
+
+#: DekoBoko.php:204
+msgid ""
+"You must check the 'Uninstall Deko Boko' checkbox to confirm you want to "
+"uninstall Deko Boko"
+msgstr ""
+
+#: DekoBoko.php:231
+msgid "Deko Boko settings saved."
+msgstr ""
+
+#: DekoBoko.php:304
+msgid "Failed call to wp_mail() - unable to send message"
+msgstr ""
+
+#: DekoBoko.php:330
+msgid "Sorry, there were errors in your submission. Please try again."
+msgstr ""
+
+#: DekoBoko.php:385
+msgid "ReCAPTCHA error"
+msgstr ""
+
+#: DekoBoko.php:386
+msgid "your captcha response was incorrect - please try again"
+msgstr ""
+
+#: DekoBoko.php:390
+msgid "Invalid Nonce"
+msgstr ""
+
+#: DekoBoko.php:395 DekoBoko.php:399
+msgid "header contains malicious data"
+msgstr ""
+
+#: DekoBoko.php:405
+msgid "Required field"
+msgstr ""
+
+#: DekoBoko.php:406
+msgid "is blank"
+msgstr ""
+
+#: DekoBoko.php:413
+msgid "is not a valid email address"
+msgstr ""
+
+#: DekoBoko.php:496
+msgid "Message from "
+msgstr ""
+
+#: display/options-main.php:20
+msgid "Support Deko Boko"
+msgstr ""
+
+#: display/options-main.php:21
+msgid "Deko Boko Help"
+msgstr ""
+
+#: display/options-main.php:25
+msgid "Settings"
+msgstr ""
+
+#: display/options-main.php:39
+msgid ""
+"If you are already using the WP-reCAPTCHA plugin for comments, Deko Boko "
+"will use the API key you've already set. If you are not using the WP-"
+"reCAPTCHA plugin, then you need to get a"
+msgstr ""
+
+#: display/options-main.php:40
+msgid "free reCAPTCHA API key for your site"
+msgstr ""
+
+#: display/options-main.php:40
+msgid "and enter the public and private keys here."
+msgstr ""
+
+#: display/options-main.php:51
+msgid ""
+"Where to email submissions from the the contact form. Separate multiple "
+"addresses with commas."
+msgstr ""
+
+#: display/options-main.php:57
+msgid ""
+"An optional subject line that will appear on emails sent to you through the "
+"contact form. If you also include a subject line in the contact form, then "
+"the subject provided by users will be appended to this subject line."
+msgstr ""
+
+#: display/options-main.php:63
+msgid ""
+"An optional message to display at the top of the contact form. You can "
+"include HTML."
+msgstr ""
+
+#: display/options-main.php:69
+msgid ""
+"The message to show users after they successfully submit the contact form. "
+"You can include HTML."
+msgstr ""
+
+#: display/options-main.php:75
+msgid ""
+"If a user checks the 'CC Me' box, this text will appear at the top of the "
+"message that's sent to them. If you use the special word BLOGNAME in all "
+"capital letters, Deko Boko will substitute the name of your blog. If you use "
+"DATETIME it will substitute the date and time the email was sent. HTML is "
+"not currently supported."
+msgstr ""
+
+#: display/options-main.php:81
+msgid ""
+"If a user checks the 'CC Me' box, this text will appear at the bottom of the "
+"message that's sent to them. If you use the special word BLOGNAME in all "
+"capital letters, Deko Boko will substitute the name of your blog. If you use "
+"DATETIME it will substitute the date and time the email was sent. HTML is "
+"not currently supported."
+msgstr ""
+
+#: display/options-main.php:87
+msgid ""
+"Optional: enter the slugs or IDs for the pages/posts where you use Deko "
+"Boko, separated by line breaks. This lets Deko Boko know on which pages to "
+"load its stylesheet (otherwise the stylesheet is loaded on every page). You "
+"can find the slug for a page by clicking 'Quick Edit' on your Edit Posts or "
+"Edit Pages screen."
+msgstr ""
+
+#: display/options-main.php:93
+msgid "red"
+msgstr ""
+
+#: display/options-main.php:94
+msgid "white"
+msgstr ""
+
+#: display/options-main.php:95
+msgid "blackglass"
+msgstr ""
+
+#: display/options-main.php:96
+msgid "clean"
+msgstr ""
+
+#: display/options-main.php:97
+msgid "custom"
+msgstr ""
+
+#: display/options-main.php:99
+msgid ""
+"'Red' is the default theme. Activating the 'clean' theme allows you to "
+"adjust the reCAPTCHA widget's colors - see dekoboko.css for the classes."
+msgstr ""
+
+#: display/options-main.php:99
+msgid "You can preview the themes here"
+msgstr ""
+
+#: display/options-main.php:99
+msgid ""
+"'Custom' is for advanced users only, who want to change the layout of the "
+"reCAPTCHA widget - see the"
+msgstr ""
+
+#: display/options-main.php:99
+msgid "reCAPTCHA Client API Documentation"
+msgstr ""
+
+#: display/options-main.php:105
+msgid "English"
+msgstr ""
+
+#: display/options-main.php:106
+msgid "Dutch"
+msgstr ""
+
+#: display/options-main.php:107
+msgid "French"
+msgstr ""
+
+#: display/options-main.php:108
+msgid "German"
+msgstr ""
+
+#: display/options-main.php:109
+msgid "Portuguese"
+msgstr ""
+
+#: display/options-main.php:110
+msgid "Russian"
+msgstr ""
+
+#: display/options-main.php:111
+msgid "Spanish"
+msgstr ""
+
+#: display/options-main.php:112
+msgid "Turkish"
+msgstr ""
+
+#: display/options-main.php:118
+msgid "Save Options"
+msgstr ""
+
+#: display/options-main.php:122 display/options-main.php:140
+msgid "Uninstall Deko Boko"
+msgstr ""
+
+#: display/options-main.php:129
+msgid "Uninstall Deko Boko?"
+msgstr ""
+
+#: display/options-main.php:131
+msgid ""
+"After uninstalling, you can deactivate Deko Boko on your plugins management "
+"page."
+msgstr ""
+
+#: display/options-main.php:134
+msgid "Remove reCAPTCHA API key?"
+msgstr ""
+
+#: display/options-main.php:136
+msgid ""
+"Deko Boko shares its reCAPTCHA API key with the WP-reCAPTCHA plugin. Do not "
+"check this box if you are using the WP-reCAPTCHA plugin for comments."
+msgstr ""
+
+#: display/options-main.php:140
+msgid "Are you sure you want to uninstall Deko Boko?"
+msgstr ""
+
+#: display/contact-form.php:22
+msgid "Fields marked with "
+msgstr ""
+
+#: display/contact-form.php:22
+msgid "are required"
+msgstr ""
+
+#: display/contact-form.php:27
+msgid "Name"
+msgstr ""
+
+#: display/contact-form.php:32
+msgid "Email"
+msgstr ""
+
+#: display/contact-form.php:37
+msgid "Subject"
+msgstr ""
+
+#: display/contact-form.php:42
+msgid "Message"
+msgstr ""
+
+#: display/contact-form.php:47
+msgid "CC Me"
+msgstr ""
+
+#: display/contact-form.php:49
+msgid "Check this box to send a copy of your message to yourself."
+msgstr ""
+
+#: display/contact-form.php:52
+msgid "Are You Human?"
+msgstr ""
+
+#: display/contact-form.php:53
+msgid "What's this?"
+msgstr ""
+
+#: display/contact-form.php:60
+msgid "Send Message"
+msgstr ""

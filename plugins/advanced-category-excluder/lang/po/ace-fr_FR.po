@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ACE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-01 03:15+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: DjZoNe <djz@djz.hu>\n"
+"Language-Team: Li-An <lian00@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_c\n"
+
+#: /advanced-category-excluder.php:214
+msgid "ACE"
+msgstr ""
+
+#: /advanced-category-excluder.php:219
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/main.php:26
+msgid "Settings"
+msgstr "Réglages"
+
+#: /advanced-category-excluder.php:220
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/categories.php:75
+msgid "Categories"
+msgstr "Catégories"
+
+#: /advanced-category-excluder.php:221
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/tags.php:2
+msgid "Tags"
+msgstr "Tages"
+
+#: /advanced-category-excluder.php:222
+msgid "Plugins homepage"
+msgstr "Page des plugins"
+
+#: /advanced-category-excluder.php:222
+msgid "Plugin homepage"
+msgstr "Page du plugin"
+
+#: /advanced-category-excluder.php:251
+msgid "Archive"
+msgstr "Archive"
+
+#: /advanced-category-excluder.php:251
+msgid "Home"
+msgstr "Home"
+
+#: /advanced-category-excluder.php:251
+msgid "RSS Posts"
+msgstr "flux RSS des billets"
+
+#: /advanced-category-excluder.php:251
+msgid "RSS Comments"
+msgstr "flux RSS des commentaires"
+
+#: /advanced-category-excluder.php:251
+msgid "Search"
+msgstr "Recherche"
+
+#: /advanced-category-excluder.php:253
+msgid "Do you want the categories selected for <strong>Home</strong> section, to be hidden from category list as well?"
+msgstr "Désirez-vous que les catégories sélectionnées pour la section <strong>Home</strong> soient aussi cachée dans la liste des catégories ?"
+
+#: /advanced-category-excluder.php:254
+msgid "Do you want the category lister, to list the empty categories?"
+msgstr "Désirez-vous que la liste des catégories inclue les catégories vides ?"
+
+#: /advanced-category-excluder.php:255
+#, php-format
+msgid "Do you want to display Event Calendar default category in the <a href=\"%s\">Categories</a> tab?"
+msgstr "Désirez-vous afficher la catégorie par défaut de Event Calendar dans l'onglet des <a href=\"%s\">catégories</a> ?"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/main.php:42
+#, php-format
+msgid "If you like this plugin, please make <a href=\"%s\" target=\"_blank\">a donation here</a>"
+msgstr "Si vous avez apprécié ce plugin, faites un don <a href=\"%s\" target=\"_blank\">ici</a>, svp."
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/categories.php:78
+#, php-format
+msgid "Here are %s different sections on the site. You can define section by section which categories would you like to hide."
+msgstr "Il y a  %s différentes section sur le site. Vous pouvez définir section par section les catégories que vous désirez cacher."
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/categories.php:104
+msgid "Doit!"
+msgstr "Go !"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/categories.php:105
+msgid "Wipe out!"
+msgstr "Effacez tout !"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/home.php:2
+msgid "Homepages"
+msgstr "Pages d'accueil"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/tags.php:3
+msgid "Coming soon ;)"
+msgstr "À venir"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/pages/tags.php:4
+msgid "Stay updated!"
+msgstr "Soyez informés des mises à jour !"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/categories.php:39
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/categories.php:42
+msgid "ACE Categories"
+msgstr "ACE Catégories"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/recent-comments.php:39
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/recent-comments.php:42
+msgid "ACE Recent Comments"
+msgstr "ACE Commentaires Récents"
+
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/recent-posts.php:39
+#: D:\!SVN\advanced-category-excluder\tags\1.2.3/widgets/recent-posts.php:42
+msgid "ACE Recent Posts"
+msgstr "ACE Billets Récents"
+
