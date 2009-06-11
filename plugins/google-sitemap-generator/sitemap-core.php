@@ -1,7 +1,7 @@
 <?php
 /*
  
- $Id: sitemap-core.php 82176 2008-12-24 04:25:18Z arnee $
+ $Id: sitemap-core.php 123431 2009-06-07 00:17:10Z arnee $
 
 */
 
@@ -384,8 +384,8 @@ class GoogleSitemapGeneratorStatus {
 		list($usec, $sec) = explode(" ", microtime());
 		return ((float)$usec + (float)$sec);
 	}
-}
-
+		}
+		
 /**
  * Represents an item in the page list
  * @author Arne Brachhold
@@ -863,7 +863,7 @@ class GoogleSitemapGenerator {
 	/**
 	 * @var Version of the generator in SVN
 	*/
-	var $_svnVersion = '$Id: sitemap-core.php 82176 2008-12-24 04:25:18Z arnee $';
+	var $_svnVersion = '$Id: sitemap-core.php 123431 2009-06-07 00:17:10Z arnee $';
 	
 	/**
 	 * @var array The unserialized array with the stored options
@@ -1755,6 +1755,8 @@ class GoogleSitemapGenerator {
 			//Pre 2.1 compatibility. 2.1 introduced 'future' as post_status so we don't need to check post_date
 			$wpCompat = (floatval($wp_version) < 2.1);
 			
+			$useQTransLate = false; //function_exists('qtrans_convertURL') && function_exists('qtrans_getEnabledLanguages'); Not really working yet
+			
 			$excludes = $this->GetOption('b_exclude'); //Excluded posts
 			
 			$exclCats = $this->GetOption("b_exclude_cats"); // Excluded cats
@@ -1768,8 +1770,7 @@ class GoogleSitemapGenerator {
 				}
 			}
 			
-			$useQTransLate = false; //function_exists('qtrans_convertURL') && function_exists('qtrans_getEnabledLanguages'); Not ready yet
-			
+	
 			$contentStmt = '';
 			if($useQTransLate) {
 				$contentStmt.=', post_content ';
@@ -1886,7 +1887,7 @@ class GoogleSitemapGenerator {
 				
 				$minPrio=$this->GetOption('pr_posts_min');
 				
-				
+			
 				//Cycle through all posts and add them
 				while($post = mysql_fetch_object($postRes)) {
 				
@@ -1992,6 +1993,9 @@ class GoogleSitemapGenerator {
 		if($this->GetOption("in_cats")) {
 			if($debug) $this->AddElement(new GoogleSitemapGeneratorDebugEntry("Debug: Start Cats"));
 			
+			$exclCats = $this->GetOption("b_exclude_cats"); // Excluded cats
+			if($exclCats == null) $exclCats=array();
+						
 			if(!$this->IsTaxonomySupported()) {
 			
 				$catsRes=$wpdb->get_results("
@@ -2012,7 +2016,7 @@ class GoogleSitemapGenerator {
 							");
 				if($catsRes) {
 					foreach($catsRes as $cat) {
-						if($cat && $cat->ID && $cat->ID>0) {
+						if($cat && $cat->ID && $cat->ID>0 && !in_array($cat->ID, $exclCats)) {
 							if($debug) if($debug) $this->AddElement(new GoogleSitemapGeneratorDebugEntry("Cat-ID:" . $cat->ID));
 							$this->AddUrl(get_category_link($cat->ID),$this->GetTimestampFromMySql($cat->last_mod),$this->GetOption("cf_cats"),$this->GetOption("pr_cats"));
 						}
@@ -2022,7 +2026,7 @@ class GoogleSitemapGenerator {
 				$cats = get_terms("category",array("hide_empty"=>true,"hierarchical"=>false));
 				if($cats && is_array($cats) && count($cats)>0) {
 					foreach($cats AS $cat) {
-						$this->AddUrl(get_category_link($cat->term_id),0,$this->GetOption("cf_cats"),$this->GetOption("pr_cats"));
+						if(!in_array($cat->term_id, $exclCats)) $this->AddUrl(get_category_link($cat->term_id),0,$this->GetOption("cf_cats"),$this->GetOption("pr_cats"));
 					}
 				}
 			}
@@ -2215,7 +2219,7 @@ class GoogleSitemapGenerator {
 		
 		//Ping MSN
 		if($this->GetOption("b_pingmsn") && !empty($pingUrl)) {
-			$sPingUrl="http://webmaster.live.com/ping.aspx?siteMap=" . urlencode($pingUrl);
+			$sPingUrl="http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
 			$status->StartMsnPing($sPingUrl);
 			$pingres=$this->RemoteOpen($sPingUrl);
 									  
@@ -2227,7 +2231,7 @@ class GoogleSitemapGenerator {
 		}
 	
 		$status->End();
-
+		
 		
 		$this->_isActive = false;
 	
@@ -2235,26 +2239,49 @@ class GoogleSitemapGenerator {
 		return $status;
 	}
 	
-	function RemoteOpen($url) {
+	function RemoteOpen($url,$method = 'get', $postData = null, $timeout = 10) {
 		global $wp_version;
-		$res = null;
 		
-		//Before WP 2.7, wp_remote_fopen was quite crappy so Snoopy was favoured. For WP 2.7, the new HTTP classes are preferred.
-		if(floatval($wp_version) < 2.7 && file_exists(ABSPATH . 'wp-includes/class-snoopy.php')) {
+		//Before WP 2.7, wp_remote_fopen was quite crappy so Snoopy was favoured.
+		if(floatval($wp_version) < 2.7) {
+			if(!file_exists(ABSPATH . 'wp-includes/class-snoopy.php')) return false; //Hoah?
+			
 			require_once( ABSPATH . 'wp-includes/class-snoopy.php');
 			
 			$s = new Snoopy();
-			$s->fetch($url);
+			
+			$s->read_timeout = $timeout;
+			
+			if($method == 'get') {
+				$s->fetch($url);
+			} else {
+				$s->submit($url,$postData);
+			}
 			
 			if($s->status == 200) {
 				$res = $s->results;
 			}
+			
 		} else {
-			$res = wp_remote_fopen($url);
+			
+			$options = array();
+			$options['timeout'] = $timeout;
+			
+			if($method == 'get') {
+				$response = wp_remote_get( $url, $options );
+			} else {
+				$response = wp_remote_post($url, array_merge($options,array('body'=>$postData)));
+			}
+		
+			if ( is_wp_error( $response ) )
+				return false;
+		
+			return $response['body'];
 		}
-		return $res;
+		
+		return false;
 	}
-	
+
 	/**
 	 * Tracks the last error (gets called by PHP)
 	 *
@@ -2294,8 +2321,10 @@ class GoogleSitemapGenerator {
 	function HtmlGetPriorityValues($currentVal) {
 		$currentVal=(float) $currentVal;
 		for($i=0.0; $i<=1.0; $i+=0.1) {
-			echo "<option value=\"$i\" " . $this->HtmlGetSelected("$i","$currentVal") .">";
-			_e(strval($i));
+			$v = number_format($i,1,".","");
+			$t = number_format_i18n($i,1);
+			echo "<option value=\"" . $v . "\" " . $this->HtmlGetSelected("$i","$currentVal") .">";
+			echo $t;
 			echo "</option>";
 		}
 	}
@@ -2369,7 +2398,6 @@ class GoogleSitemapGenerator {
 
 		//Array where the new pages are stored
 		$pages=array();
-		
 		//Loop through all defined pages and set their properties into an object
 		if(isset($_POST["sm_pages_mark"]) && is_array($_POST["sm_pages_mark"])) {
 			for($i=0; $i<count($_POST["sm_pages_mark"]); $i++) {
@@ -2383,11 +2411,11 @@ class GoogleSitemapGenerator {
 				$lm=(!empty($pages_lm[$i])?strtotime($pages_lm[$i],time()):-1);
 				if($lm===-1) $p->setLastMod(0);
 				else $p->setLastMod($lm);
-				
 				//Add it to the array
 				array_push($pages,$p);
 			}
 		}
+
 		return $pages;
 	}
 	
@@ -2396,11 +2424,6 @@ class GoogleSitemapGenerator {
 		list($year,$month,$day) = split('-',$date);
 		list($hour,$min,$sec) = split(':',$hours);
 		return mktime($hour, $min, $sec, $month, $day, $year);
-	}
-
-	
-	function GetResourceLink($resourceID) {
-		return trailingslashit(get_bloginfo('siteurl')) . '?res=' . $resourceID;
 	}
 	
 	function GetRedirectLink($redir) {

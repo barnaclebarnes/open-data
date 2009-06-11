@@ -3,7 +3,7 @@ Contributors: cavemonkey50, spiralwebconsulting
 Tags: stats, google, analytics, tracking
 Requires at least: 2.7
 Tested up to: 2.8
-Stable tag: 4.1.1
+Stable tag: 4.2
 
 Adds the necessary JavaScript code to enable Google Analytics.
 

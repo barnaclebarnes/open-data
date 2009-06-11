@@ -1,7 +1,7 @@
 <?php 
 /*
  * Plugin Name: Google Analyticator
- * Version: 4.1.1
+ * Version: 4.2
  * Plugin URI: http://plugins.spiralwebconsulting.com/analyticator.html
  * Description: Adds the necessary JavaScript code to enable <a href="http://www.google.com/analytics/">Google's Analytics</a>. After enabling this plugin visit <a href="options-general.php?page=google-analyticator.php">the settings page</a> and enter your Google Analytics' UID and enable logging.
  * Author: Spiral Web Consulting
@@ -10,8 +10,14 @@
 
 # Include Google Analytics Stats widget
 if ( function_exists('curl_init') ) {
-	require_once('google-analytics-stats.php');
-	$google_analytics_stats = new GoogleStatsWidget();
+	
+	# Check if we have a version of WordPress greater than 2.8
+	if ( substr( get_bloginfo('version'), 0, strpos(get_bloginfo('version'), '-') ) >= '2.8' )
+		require_once('google-analytics-stats-widget.php');
+	else {
+		require_once('google-analytics-stats.php');
+		$google_analytics_stats = new GoogleStatsWidget();
+	}
 }
 
 // Constants for enabled/disabled state
@@ -534,8 +540,8 @@ function add_ga_adsense() {
 	if (  (get_option(key_ga_status) != ga_disabled ) && ( $uid != "XX-XXXXX-X" )) {
 		// Display page tracking if user is not an admin
 		if ( ( get_option(key_ga_admin) == ga_enabled || !current_user_can('level_' . get_option(key_ga_admin_level)) ) && get_option(key_ga_admin_disable) == 'remove' || get_option(key_ga_admin_disable) != 'remove' ) {
-			echo "<!-- Google Analytics Tracking by Google Analyticator: http://plugins.spiralwebconsulting.com/analyticator.html -->\n";
 			if ( get_option(key_ga_adsense) != '' ) {
+				echo "<!-- Google Analytics Tracking by Google Analyticator: http://plugins.spiralwebconsulting.com/analyticator.html -->\n";
 				echo '	<script type="text/javascript">window.google_analytics_uacct = "' . get_option(key_ga_adsense) . "\";</script>\n\n";
 			}
 		}

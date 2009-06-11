@@ -1,7 +1,7 @@
 <?php
 
 /*
- $Id: sitemap.php 82176 2008-12-24 04:25:18Z arnee $
+ $Id: sitemap.php 123431 2009-06-07 00:17:10Z arnee $
 
  Google XML Sitemaps Generator for WordPress
  ==============================================================================
@@ -25,7 +25,7 @@
  Plugin Name: Google XML Sitemaps
  Plugin URI: http://www.arnebrachhold.de/redir/sitemap-home/
  Description: This plugin will generate a sitemaps.org compatible sitemap of your WordPress blog which is supported by Ask.com, Google, MSN Search and YAHOO. <a href="options-general.php?page=sitemap.php">Configuration Page</a>
- Version: 3.1.2
+ Version: 3.1.3
  Author: Arne Brachhold
  Author URI: http://www.arnebrachhold.de/
 */
