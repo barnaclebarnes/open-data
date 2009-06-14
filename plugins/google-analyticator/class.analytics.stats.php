@@ -1,8 +1,13 @@
 <?php
 
 # Include SimplePie if it doesn't exist
-if ( !class_exists('SimplePie') )
-	require_once('simplepie.inc');
+if ( !class_exists('SimplePie') ) {
+	if ( function_exists('fetch_feed') ) {
+		require_once (ABSPATH . WPINC . '/class-feed.php');
+	} else {
+		require_once('simplepie.inc');
+	}
+}
 
 /**
  * Handles interactions with Google Analytics' Stat API
