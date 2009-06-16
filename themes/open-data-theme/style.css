@@ -458,3 +458,11 @@ padding:30px 0 40px 0;
 .center {
 	text-align: center;
 }
+
+.cat_header{
+font-family:Georgia;
+font-size:28px;
+margin:30px 0 10px 0;
+font-weight:normal;
+line-height:32px;
+}
