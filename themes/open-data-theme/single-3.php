@@ -52,6 +52,8 @@ get_header();
 
 				<?php the_content(); ?>
 
+				<p><strong>Last Editied:</strong> <?php echo $post->post_modified; ?></p>
+
 			<div class="entry">
 				<?php the_tags( '<p>Tags: ', ', ', '</p>'); ?>
 
