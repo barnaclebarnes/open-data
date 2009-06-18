@@ -1,0 +1,36 @@
+== Open Data Catalogue (opengovt.org.nz/cat)
+
+This is the source code of the wp-content directory for the Open Data Catalogue if you want to get hacking on it.
+
+== Install steps
+
+Download the latest copy of WordPress from here http://wordpress.org/latest.zip
+
+Install WordPress. It may be wise to set the table prefix to wp_cat_ as this is what we use for the production data.
+
+Change to the WordPress directory:
+
+ cd <path to wordpress install>
+ 
+Remove the existing wp-content directory:
+
+ rm -rf wp-content
+
+Clone the Open Data Catalogue theme and plugins:
+
+ git clone git://github.com/barnaclebarnes/open-data.git
+
+Download a copy of the live database:
+
+ [TODO: I don't have this easily accessible at the moment. Email me glen [at] opengovt [dot] org [dot] nz for a copy.]
+
+Edit the SQL and do a find and replace:
+
+ Find: http://opengovt.org.nz/cat
+ Replace: http://yourserver/path/to/installation
+
+Fire up you browser and you should be set.
+
+== Contact
+
+You can contact me at my email address glen [at] opengovt [dot] org [dot] nz
