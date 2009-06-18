@@ -10,21 +10,33 @@ jQuery(document).ready(function() {
 		
 		var url = href.replace('http://','').replace('https://','');
 		var hrefArray = href.split('.').reverse();
-		var extension = hrefArray[0];
- 
-	 	// If the link is external
-	 	if ( ( href.match(/^http/) ) && ( !href.match(document.domain) ) ) {
-	    	// Add the tracking code
-			a.click(function() {
-				pageTracker._trackPageview(outboundPrefix + url);
-			});
-		}
+		var extension = hrefArray[0].toLowerCase();
+		var hrefArray = href.split('/').reverse();
+		var domain = hrefArray[2];
+		var downloadTracked = false;
 	
 	 	// If the link is a download
-		if (jQuery.inArray(extension,fileTypes) != -1) {
+		if (jQuery.inArray(extension,analyticsFileTypes) != -1) {
+			// Mark the link as already tracked
+			downloadTracked = true;
+			
 			// Add the tracking code
 			a.click(function() {
-				pageTracker._trackPageview(downloadsPrefix + url);
+				if ( analyticsEventTracking == 'enabled' ) {
+					pageTracker._trackEvent("Downloads", extension.toUpperCase(), href);
+				} else
+					pageTracker._trackPageview(analyticsDownloadsPrefix + url);
+			});
+		}
+		
+		// If the link is external
+	 	if ( ( href.match(/^http/) ) && ( !href.match(document.domain) ) && ( downloadTracked == false ) ) {
+	    	// Add the tracking code
+			a.click(function() {
+				if ( analyticsEventTracking == 'enabled' ) {
+					pageTracker._trackEvent("Outbound Traffic", href.match(/:\/\/(.[^/]+)/)[1], href);
+				} else
+					pageTracker._trackPageview(analyticsOutboundPrefix + url);
 			});
 		}
 	});

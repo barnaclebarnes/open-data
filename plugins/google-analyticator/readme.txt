@@ -3,7 +3,7 @@ Contributors: cavemonkey50, spiralwebconsulting
 Tags: stats, google, analytics, tracking
 Requires at least: 2.7
 Tested up to: 2.8
-Stable tag: 4.2.1
+Stable tag: 4.3.1
 
 Adds the necessary JavaScript code to enable Google Analytics.
 
@@ -11,16 +11,19 @@ Adds the necessary JavaScript code to enable Google Analytics.
 
 Google Analyticator adds the necessary JavaScript code to enable Google Analytics logging on any WordPress blog. This eliminates the need to edit your template code to begin logging.
 
+View the [current release notes](http://plugins.spiralwebconsulting.com/analyticator.html#history) on our website.
+
 *Google Analyticator is brought to you for free by [Spiral Web Consulting](http://spiralwebconsulting.com/). Spiral Web Consulting is a small web development firm specializing in PHP development. Visit our website to learn more, and don't hesitate to ask us to develop your next big WordPress plugin idea.*
 
 = Features =
 
 Google Analyticator Has the Following Features:
 
-- **NEW:** Google Analytics API support. Includes a stats widget showing yesterday's visitors. More stats to come!
 - Standard Google Analytics tracking support
+- Provides a widget that can be used to display visitor stat information on the front-end
 - External link tracking of all links on the page, including links not managed by WordPress
 - Download link tracking
+- **NEW!** Support for event tracking with outbound links / downloads instead of the old pageview tracking method
 - Support for hiding Administrator visits without effecting Google Analytics' site overlay feature
 - Support for any advanced tracking code Google provides
 - Easily installable only requiring the user knows their UID

@@ -8,73 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-12 07:49-0400\n"
+"POT-Creation-Date: 2009-06-17 09:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: DekoBoko.php:194
-msgid ""
-"Deko Boko has been uninstalled. You can now deactivate Deko Boko on your "
-"plugins management page."
-msgstr ""
-
-#: DekoBoko.php:198
-msgid "Uninstall of Deko Boko failed. Database error:"
-msgstr ""
-
-#: DekoBoko.php:204
-msgid ""
-"You must check the 'Uninstall Deko Boko' checkbox to confirm you want to "
-"uninstall Deko Boko"
-msgstr ""
-
-#: DekoBoko.php:231
-msgid "Deko Boko settings saved."
-msgstr ""
-
-#: DekoBoko.php:304
-msgid "Failed call to wp_mail() - unable to send message"
-msgstr ""
-
-#: DekoBoko.php:330
-msgid "Sorry, there were errors in your submission. Please try again."
-msgstr ""
-
-#: DekoBoko.php:385
-msgid "ReCAPTCHA error"
-msgstr ""
-
-#: DekoBoko.php:386
-msgid "your captcha response was incorrect - please try again"
-msgstr ""
-
-#: DekoBoko.php:390
-msgid "Invalid Nonce"
-msgstr ""
-
-#: DekoBoko.php:395 DekoBoko.php:399
-msgid "header contains malicious data"
-msgstr ""
-
-#: DekoBoko.php:405
-msgid "Required field"
-msgstr ""
-
-#: DekoBoko.php:406
-msgid "is blank"
-msgstr ""
-
-#: DekoBoko.php:413
-msgid "is not a valid email address"
-msgstr ""
-
-#: DekoBoko.php:496
-msgid "Message from "
-msgstr ""
 
 #: display/options-main.php:20
 msgid "Support Deko Boko"
@@ -86,6 +26,10 @@ msgstr ""
 
 #: display/options-main.php:25
 msgid "Settings"
+msgstr ""
+
+#: display/options-main.php:37
+msgid "reCAPTCHA public key:"
 msgstr ""
 
 #: display/options-main.php:39
@@ -103,10 +47,22 @@ msgstr ""
 msgid "and enter the public and private keys here."
 msgstr ""
 
+#: display/options-main.php:44
+msgid "reCAPTCHA private key:"
+msgstr ""
+
+#: display/options-main.php:49
+msgid "Recipient email address:"
+msgstr ""
+
 #: display/options-main.php:51
 msgid ""
 "Where to email submissions from the the contact form. Separate multiple "
 "addresses with commas."
+msgstr ""
+
+#: display/options-main.php:55
+msgid "Email subject line:"
 msgstr ""
 
 #: display/options-main.php:57
@@ -116,16 +72,28 @@ msgid ""
 "the subject provided by users will be appended to this subject line."
 msgstr ""
 
+#: display/options-main.php:61
+msgid "Welcome message:"
+msgstr ""
+
 #: display/options-main.php:63
 msgid ""
 "An optional message to display at the top of the contact form. You can "
 "include HTML."
 msgstr ""
 
+#: display/options-main.php:67
+msgid "Success message:"
+msgstr ""
+
 #: display/options-main.php:69
 msgid ""
 "The message to show users after they successfully submit the contact form. "
 "You can include HTML."
+msgstr ""
+
+#: display/options-main.php:73
+msgid "\"CC Me\" header:"
 msgstr ""
 
 #: display/options-main.php:75
@@ -137,6 +105,10 @@ msgid ""
 "not currently supported."
 msgstr ""
 
+#: display/options-main.php:79
+msgid "\"CC Me\" footer:"
+msgstr ""
+
 #: display/options-main.php:81
 msgid ""
 "If a user checks the 'CC Me' box, this text will appear at the bottom of the "
@@ -146,6 +118,10 @@ msgid ""
 "not currently supported."
 msgstr ""
 
+#: display/options-main.php:85
+msgid "Page Slugs/IDs:"
+msgstr ""
+
 #: display/options-main.php:87
 msgid ""
 "Optional: enter the slugs or IDs for the pages/posts where you use Deko "
@@ -153,6 +129,10 @@ msgid ""
 "load its stylesheet (otherwise the stylesheet is loaded on every page). You "
 "can find the slug for a page by clicking 'Quick Edit' on your Edit Posts or "
 "Edit Pages screen."
+msgstr ""
+
+#: display/options-main.php:91
+msgid "reCAPTCHA theme:"
 msgstr ""
 
 #: display/options-main.php:93
@@ -193,6 +173,10 @@ msgstr ""
 
 #: display/options-main.php:99
 msgid "reCAPTCHA Client API Documentation"
+msgstr ""
+
+#: display/options-main.php:103
+msgid "reCAPTCHA language:"
 msgstr ""
 
 #: display/options-main.php:105
@@ -301,4 +285,64 @@ msgstr ""
 
 #: display/contact-form.php:60
 msgid "Send Message"
+msgstr ""
+
+#: DekoBoko.php:194
+msgid ""
+"Deko Boko has been uninstalled. You can now deactivate Deko Boko on your "
+"plugins management page."
+msgstr ""
+
+#: DekoBoko.php:198
+msgid "Uninstall of Deko Boko failed. Database error:"
+msgstr ""
+
+#: DekoBoko.php:204
+msgid ""
+"You must check the 'Uninstall Deko Boko' checkbox to confirm you want to "
+"uninstall Deko Boko"
+msgstr ""
+
+#: DekoBoko.php:231
+msgid "Deko Boko settings saved."
+msgstr ""
+
+#: DekoBoko.php:304
+msgid "Failed call to wp_mail() - unable to send message"
+msgstr ""
+
+#: DekoBoko.php:330
+msgid "Sorry, there were errors in your submission. Please try again."
+msgstr ""
+
+#: DekoBoko.php:385
+msgid "ReCAPTCHA error"
+msgstr ""
+
+#: DekoBoko.php:386
+msgid "your captcha response was incorrect - please try again"
+msgstr ""
+
+#: DekoBoko.php:390
+msgid "Invalid Nonce"
+msgstr ""
+
+#: DekoBoko.php:395 DekoBoko.php:399
+msgid "header contains malicious data"
+msgstr ""
+
+#: DekoBoko.php:405
+msgid "Required field"
+msgstr ""
+
+#: DekoBoko.php:406
+msgid "is blank"
+msgstr ""
+
+#: DekoBoko.php:413
+msgid "is not a valid email address"
+msgstr ""
+
+#: DekoBoko.php:496
+msgid "Message from "
 msgstr ""

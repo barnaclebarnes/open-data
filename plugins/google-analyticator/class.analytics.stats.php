@@ -72,6 +72,19 @@ class GoogleAnalyticsStats
 	}
 	
 	/**
+	 * Checks if the username and password worked by looking at the token
+	 *
+	 * @return Boolean if the login details worked
+	 **/
+	function checkLogin()
+	{
+		if ( $this->token != false )
+			return true;
+		else
+			return false;
+	}
+	
+	/**
 	 * Sets the account id to use for queries
 	 *
 	 * @param id - the account id

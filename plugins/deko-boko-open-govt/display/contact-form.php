@@ -6,7 +6,7 @@
  * copyright and license information.
  *
  * @author Michael Toppa
- * @version 1.2.1
+ * @version 1.2.2
  * @package DekoBoko
  */
 

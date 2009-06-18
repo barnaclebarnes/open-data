@@ -1,14 +1,14 @@
 <?php 
 /*
  * Plugin Name: Google Analyticator
- * Version: 4.2.1
+ * Version: 4.3.1
  * Plugin URI: http://plugins.spiralwebconsulting.com/analyticator.html
  * Description: Adds the necessary JavaScript code to enable <a href="http://www.google.com/analytics/">Google's Analytics</a>. After enabling this plugin visit <a href="options-general.php?page=google-analyticator.php">the settings page</a> and enter your Google Analytics' UID and enable logging.
  * Author: Spiral Web Consulting
  * Author URI: http://spiralwebconsulting.com/
  */
 
-define('GOOGLE_ANALYTICATOR_VERSION', '4.2.1');
+define('GOOGLE_ANALYTICATOR_VERSION', '4.3.1');
 
 # Include Google Analytics Stats widget
 if ( function_exists('curl_init') ) {
@@ -35,6 +35,7 @@ define("key_ga_admin_level", "ga_admin_level", true);
 define("key_ga_adsense", "ga_adsense", true);
 define("key_ga_extra", "ga_extra", true);
 define("key_ga_extra_after", "ga_extra_after", true);
+define("key_ga_event", "ga_event", true);
 define("key_ga_outbound", "ga_outbound", true);
 define("key_ga_outbound_prefix", "ga_outbound_prefix", true);
 define("key_ga_downloads", "ga_downloads", true);
@@ -50,6 +51,7 @@ define("ga_admin_level_default", 8, true);
 define("ga_adsense_default", "", true);
 define("ga_extra_default", "", true);
 define("ga_extra_after_default", "", true);
+define("ga_event_default", ga_enable, true);
 define("ga_outbound_default", ga_enabled, true);
 define("ga_outbound_prefix_default", 'outgoing', true);
 define("ga_downloads_default", "", true);
@@ -66,6 +68,7 @@ add_option(key_ga_admin_level, ga_admin_level_default, 'The level to consider a 
 add_option(key_ga_adsense, ga_adsense_default, '');
 add_option(key_ga_extra, ga_extra_default, 'Addition Google Analytics tracking options');
 add_option(key_ga_extra_after, ga_extra_after_default, 'Addition Google Analytics tracking options');
+add_option(key_ga_event, ga_event_default, '');
 add_option(key_ga_outbound, ga_outbound_default, 'Add tracking of outbound links');
 add_option(key_ga_outbound_prefix, ga_outbound_prefix_default, 'Add tracking of outbound links');
 add_option(key_ga_downloads, ga_downloads_default, 'Download extensions to track with Google Analyticator');
@@ -89,6 +92,7 @@ function ga_admin_init() {
 		register_setting('google-analyticator', key_ga_adsense, '');
 		register_setting('google-analyticator', key_ga_extra, '');
 		register_setting('google-analyticator', key_ga_extra_after, '');
+		register_setting('google-analyticator', key_ga_event, '');
 		register_setting('google-analyticator', key_ga_outbound, '');
 		register_setting('google-analyticator', key_ga_outbound_prefix, '');
 		register_setting('google-analyticator', key_ga_downloads, '');
@@ -105,6 +109,15 @@ add_action('init', 'ga_outgoing_links');
 function add_ga_option_page() {
 	global $wpdb;
 	add_options_page('Google Analyticator Settings', 'Google Analytics', 8, basename(__FILE__), 'ga_options_page');
+}
+
+add_action('plugin_action_links_' . plugin_basename(__FILE__), 'ga_filter_plugin_actions');
+
+// Adds FAQ and changelog options
+function ga_filter_plugin_actions($links) {
+	$links[] = '<a href="http://plugins.spiralwebconsulting.com/forums/viewforum.php?f=5">FAQ</a>';
+	
+	return $links;
 }
 
 function ga_options_page() {
@@ -153,6 +166,12 @@ function ga_options_page() {
 			// Update the adsense key
 			$ga_adsense = $_POST[key_ga_adsense];
 			update_option(key_ga_adsense, $ga_adsense);
+			
+			// Update the event tracking
+			$ga_event = $_POST[key_ga_event];
+			if (($ga_event != ga_enabled) && ($ga_event != ga_disabled))
+				$ga_event = ga_event_default;
+			update_option(key_ga_event, $ga_event);
 
 			// Update the outbound tracking
 			$ga_outbound = $_POST[key_ga_outbound];
@@ -266,7 +285,7 @@ function ga_options_page() {
 					</th>
 					<td>
 						<input type="text" size="40" name="google_stats_user" id="google_stats_user" value="<?php echo stripslashes(get_option('google_stats_user')); ?>" />
-						<br /><span class="setting-description">Your Google Analytics account's username. This is needed to authenticate with Google for use with the stats widget.</span>
+						<p style="margin: 5px 10px;" class="setting-description">Your Google Analytics account's username. This is needed to authenticate with Google for use with the stats widget.</p>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -275,7 +294,7 @@ function ga_options_page() {
 					</th>
 					<td>
 						<input type="password" size="40" name="google_stats_password" id="google_stats_password" value="<?php echo stripslashes(get_option('google_stats_password')); ?>" />
-						<br /><span class="setting-description">Your Google Analytics account's password. This is needed to authenticate with Google for use with the stats widget.</span>
+						<p style="margin: 5px 10px;" class="setting-description">Your Google Analytics account's password. This is needed to authenticate with Google for use with the stats widget.</p>
 					</td>
 				</tr>
 				<?php } ?>
@@ -400,17 +419,26 @@ function ga_options_page() {
 					</td>
 				</tr>
 				<tr>
-					<th valign="top" style="padding-top: 10px;">
-						<label for="<?php echo key_ga_outbound_prefix; ?>">Prefix external links with:</label>
+					<th width="30%" valign="top" style="padding-top: 10px;">
+						<label for="<?php echo key_ga_event ?>">Event tracking:</label>
 					</th>
 					<td>
 						<?php
-						echo "<input type='text' size='50' ";
-						echo "name='".key_ga_outbound_prefix."' ";
-						echo "id='".key_ga_outbound_prefix."' ";
-						echo "value='".stripslashes(get_option(key_ga_outbound_prefix))."' />\n";
+						echo "<select name='".key_ga_event."' id='".key_ga_event."'>\n";
+						
+						echo "<option value='".ga_enabled."'";
+						if(get_option(key_ga_event) == ga_enabled)
+							echo " selected='selected'";
+						echo ">Enabled</option>\n";
+						
+						echo "<option value='".ga_disabled."'";
+						if(get_option(key_ga_event) == ga_disabled)
+							echo" selected='selected'";
+						echo ">Disabled</option>\n";
+						
+						echo "</select>\n";
 						?>
-						<p style="margin: 5px 10px;" class="setting-description">Enter a name for the section tracked external links will appear under.</em></p>
+						<p style="margin: 5px 10px;" class="setting-description">Enabling this option will treat outbound links and downloads as events instead of pageviews. Since the introduction of <a href="http://code.google.com/apis/analytics/docs/tracking/eventTrackerOverview.html">event tracking in Analytics</a>, this is the recommended way to track these types of actions. Only disable this option if you must use the old pageview tracking method.</p>
 					</td>
 				</tr>
 				<tr>
@@ -429,6 +457,20 @@ function ga_options_page() {
 				</tr>
 				<tr>
 					<th valign="top" style="padding-top: 10px;">
+						<label for="<?php echo key_ga_outbound_prefix; ?>">Prefix external links with:</label>
+					</th>
+					<td>
+						<?php
+						echo "<input type='text' size='50' ";
+						echo "name='".key_ga_outbound_prefix."' ";
+						echo "id='".key_ga_outbound_prefix."' ";
+						echo "value='".stripslashes(get_option(key_ga_outbound_prefix))."' />\n";
+						?>
+						<p style="margin: 5px 10px;" class="setting-description">Enter a name for the section tracked external links will appear under. This option has no effect if event tracking is enabled.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<th valign="top" style="padding-top: 10px;">
 						<label for="<?php echo key_ga_downloads_prefix; ?>">Prefix download links with:</label>
 					</th>
 					<td>
@@ -438,7 +480,7 @@ function ga_options_page() {
 						echo "id='".key_ga_download_sprefix."' ";
 						echo "value='".stripslashes(get_option(key_ga_downloads_prefix))."' />\n";
 						?>
-						<p style="margin: 5px 10px;" class="setting-description">Enter a name for the section tracked download links will appear under.</em></p>
+						<p style="margin: 5px 10px;" class="setting-description">Enter a name for the section tracked download links will appear under. This option has no effect if event tracking is enabled.</em></p>
 					</td>
 				</tr>
 				<tr>
@@ -614,12 +656,14 @@ function add_google_analytics() {
 			// Include the link tracking prefixes
 			$outbound_prefix = stripslashes(get_option(key_ga_outbound_prefix));
 			$downloads_prefix = stripslashes(get_option(key_ga_downloads_prefix));
+			$event_tracking = get_option(key_ga_event);
 		
 			?>
 			<script type="text/javascript">
-				var fileTypes = [<?php echo $ext; ?>];
-				var outboundPrefix = '/<?php echo $outbound_prefix; ?>/';
-				var downloadsPrefix = '/<?php echo $downloads_prefix; ?>/';
+				var analyticsFileTypes = [<?php echo strtolower($ext); ?>];
+				var analyticsOutboundPrefix = '/<?php echo $outbound_prefix; ?>/';
+				var analyticsDownloadsPrefix = '/<?php echo $downloads_prefix; ?>/';
+				var analyticsEventTracking = '<?php echo $event_tracking; ?>';
 			</script>
 			<?php
 		}
@@ -628,8 +672,6 @@ function add_google_analytics() {
 
 /**
  * Adds outbound link tracking to Google Analyticator
- *
- * @author Ronald Heft
  **/
 function ga_outgoing_links()
 {
@@ -650,13 +692,11 @@ function ga_outgoing_links()
 
 /**
  * Adds the scripts required for outbound link tracking
- *
- * @author Ronald Heft
  **/
 function ga_external_tracking_js()
 {
-	wp_enqueue_script('jquery');
-	wp_enqueue_script('ga-external-tracking', plugins_url('/google-analyticator/external-tracking.js'));
+//	wp_enqueue_script('jquery');
+	wp_enqueue_script('ga-external-tracking', plugins_url('/google-analyticator/external-tracking.min.js'), array('jquery'), GOOGLE_ANALYTICATOR_VERSION);
 }
 
 ?>

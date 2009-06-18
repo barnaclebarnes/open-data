@@ -4,7 +4,7 @@ Plugin Name: Deko Boko
 Plugin URI: http://www.toppa.com/deko-boko-wordpress-plugin/
 Description: An easily extensible contact form, using re-captcha
 Author: Michael Toppa
-Version: 1.2.1
+Version: 1.2.2
 Author URI: http://www.toppa.com
 */
 
@@ -12,7 +12,7 @@ Author URI: http://www.toppa.com
  * DekoBoko Class File
  *
  * @author Michael Toppa
- * @version 1.2.1
+ * @version 1.2.2
  * @package DekoBoko
  *
  * Copyright 2008-2009 Michael Toppa
@@ -38,7 +38,7 @@ define('DEKOBOKO_FILE', basename(__FILE__));
 define('DEKOBOKO_DIR', dirname(__FILE__));
 define('DEKOBOKO_ADMIN_URL', $_SERVER['PHP_SELF'] . "?page=" . basename(DEKOBOKO_DIR) . '/' . DEKOBOKO_FILE);
 define('DEKOBOKO_PATH', DEKOBOKO_DIR . '/' . DEKOBOKO_FILE);
-define('DEKOBOKO_VERSION', '1.2.1');
+define('DEKOBOKO_VERSION', '1.2.2');
 define('DEKOBOKO_DISPLAY_NAME', 'Deko Boko');
 define('DEKOBOKO_DISPLAY_URL', get_bloginfo('wpurl') . '/wp-content/plugins/' . basename(DEKOBOKO_DIR) . '/display');
 define('DEKOBOKO_FAQ_URL', 'http://www.toppa.com/deko-boko-wordpress-plugin');

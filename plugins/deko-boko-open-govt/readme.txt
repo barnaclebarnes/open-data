@@ -3,8 +3,8 @@ Contributors: toppa
 Donate link: http://www.toppa.com/deko-boko-wordpress-plugin
 Tags: email, contact, spam, captcha
 Requires at least: 2.5
-Tested up to: 2.7.1
-Stable tag: 1.2.1
+Tested up to: 2.8
+Stable tag: 1.2.2
 
 Deko Boko is a simple but highly extensible contact form, integrating reCAPTCHA for handling spam.
 
@@ -30,11 +30,11 @@ Why write yet another email contact form for WordPress? There are two things tha
 
 * Security in addition to reCAPTCHA is included. Deko Boko protects against email header injections and XSS attacks.
 
-**New in Version 1.2**
+**New Features in Version 1.2**
 
 * You can have Deko Boko load its stylesheet only on pages where you use the Deko Boko contact form, so it won't be loaded unnecessarily on other pages.
 
-* Localization support: a dekoboko.pot file is included to enable translations to other languages.
+* Localization support: a dekoboko.pot file is included to enable translations to other languages. French and Spanish translations included in version 1.2.2.
 
 * A sample form is included, to help you make your own custom contact form.
 
@@ -42,16 +42,24 @@ Why write yet another email contact form for WordPress? There are two things tha
 
 * Uninstall option.
 
+**Bug Fixes**
+
+1.2.1: correctly saves the reCAPTCHA API keys if they hadn't been set previously (was failing to save if WP-reCAPTCHA hadn't been installed previously); correctly cleans up old-style Deko Boko options from the database.
+
+1.2.2: fixes display of selected language in the Settings form (was always defaulting to English); added French and Spanish translations.
+
 == Installation ==
 
 **Installation**
 
 Download the zip file, unzip it, and copy the "dekoboko" folder to your plugins directory. Then activate it from your plugin panel. After successful activation, Deko Boko will appear under your "Settings" tab. Note that Deko Boko requires WordPress 2.5 or higher.
 
-*Important note to upgraders:* you will need to deactivate and then reactivate Deko Boko after you upload the new files. Also, the contact form now uses a nonce field for additional security. If you have made your own contact form template, you will need to add a nonce hidden input field, like this:
+*Important note to upgraders from version 1.1 or earlier:* you will need to deactivate and then reactivate Deko Boko after you upload the new files. Also, the contact form now uses a [nonce field](http://codex.wordpress.org/WordPress_Nonces) for additional security. If you have made your own contact form template, you will need to add a nonce hidden input field, like this:
 
 &lt;?php wp\_nonce\_field('dekoboko\_nonce', 'dekoboko\_nonce'); ?&gt;
 
 == Frequently Asked Questions ==
 
-Please go to [the Deko Boko page](http://www.toppa.com/deko-boko-wordpress-plugin) for a Usage Guide and other information.
+Please go to [the Deko Boko page on my site](http://www.toppa.com/deko-boko-wordpress-plugin) for a Usage Guide and other information.
+
+For troubleshooting help, please [post a comment in my latest Deko Boko post](http://www.toppa.com/category/wordpress-and-web-programming/deko-boko/).
