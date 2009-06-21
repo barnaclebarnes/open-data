@@ -107,8 +107,7 @@ class wpdbBackup {
 		$this->backup_filename = DB_NAME . "_$table_prefix$datum.sql";
 		if ($this->gzip()) $this->backup_filename .= '.gz';
 
-		$possible_names = array(
-			'categories',
+/*			'categories',
 			'comments',
 			'link2cat',
 			'linkcategories',
@@ -122,6 +121,18 @@ class wpdbBackup {
 			'term_relationships',
 			'users',
 			'usermeta',
+*/
+		$possible_names = array(
+			'categories',
+			'link2cat',
+			'linkcategories',
+			'links',
+			'post2cat',
+			'postmeta',
+			'posts',
+			'terms',
+			'term_taxonomy',
+			'term_relationships',
 		);
 
 		foreach( $possible_names as $name ) {
