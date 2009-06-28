@@ -18,7 +18,7 @@ Remove the existing wp-content directory:
 
 Clone the Open Data Catalogue theme and plugins:
 
- git clone git://github.com/barnaclebarnes/open-data.git
+ git clone git://github.com/barnaclebarnes/open-data.git wp-content
 
 Download a copy of the live database:
 
@@ -31,6 +31,9 @@ Edit the SQL and do a find and replace:
 
 Fire up you browser and you should be set.
 
+== Bugs, Feature Requests, Etc.
+
+You can submitt bugs, feature requests, etc at the Lighthouse page here - http://opengovt.lighthouseapp.com/projects/32248-open-data-catalogue
 == Contact
 
 You can contact me at my email address glen [at] opengovt [dot] org [dot] nz

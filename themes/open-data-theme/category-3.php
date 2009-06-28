@@ -80,7 +80,7 @@
 							<?php echo output_url($dataset->geo_url, "download-geo.jpg"); ?>
 						</td>
 						<td class="dl_col">
-							<?php echo output_url($dataset->api_url, "download-api.jpg"); ?>
+							<?php echo output_url($dataset->api_url, "download-api.gif"); ?>
 						</td>
 						<td class="dl_col">
 							<?php echo output_url($dataset->other_url, "download-other.jpg"); ?>

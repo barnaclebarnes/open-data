@@ -46,6 +46,7 @@ get_header();
 				<?php echo output_url($dataset->csv_url, "download-csv.gif"); ?>
 				<?php echo output_url($dataset->kml_url, "download-kml.jpg"); ?>
 				<?php echo output_url($dataset->geo_url, "download-geo.jpg"); ?>
+				<?php echo output_url($dataset->api_url, "download-api.gif"); ?>
 				<?php echo output_url($dataset->other_url, "download-other.jpg"); ?>
 			</p>
 
