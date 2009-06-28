@@ -38,6 +38,9 @@
 					<th scope="col" id="c8" abbr="geo" align="left" valign="middle" class="set_link"> 
 						<p class="nomargin white">Geo</p>
 					</th>
+					<th scope="col" id="c8" abbr="api" align="left" valign="middle" class="set_link"> 
+						<p class="nomargin white">API</p>
+					</th>
 					<th scope="col" id="c9" abbr="other" align="left" valign="middle" class="set_link"> 
 						<p class="nomargin white">Other</p>
 					</th>
@@ -75,6 +78,9 @@
 						</td>
 						<td class="dl_col">
 							<?php echo output_url($dataset->geo_url, "download-geo.jpg"); ?>
+						</td>
+						<td class="dl_col">
+							<?php echo output_url($dataset->api_url, "download-api.jpg"); ?>
 						</td>
 						<td class="dl_col">
 							<?php echo output_url($dataset->other_url, "download-other.jpg"); ?>

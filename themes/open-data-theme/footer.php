@@ -9,7 +9,11 @@
 </div>
 
 <!-- Can put web stats code here -->
-
+<script type="text/javascript"> 
+var cbjspath = "static.chartbeat.com/js/chartbeat.js?uid=2062&domain=opengovt.org.nz";
+var cbjsprotocol = (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://");
+document.write(unescape("%3Cscript src='"+cbjsprotocol+cbjspath+"' type='text/javascript'%3E%3C/script%3E"))
+</script>
 </body>
 
 </html>
