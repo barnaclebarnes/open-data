@@ -55,20 +55,8 @@
 </li>
 
 <li>
-    <label for="dekoboko_department">Department*</label><br />
-	<select name="dekoboko_required[department]" id="dekoboko_department">
-<?php 
-	$options = array("Archives New Zealand","Archives New Zealand (Te Rua Mahara o te Kawanatanga)","The Crown Law Office","The Department of Building and Housing",
-	"The Department of Conservation","The Department of Corrections","The Department of Internal Affairs","The Department of Labour","The Department of the Prime Minister and Cabinet",
-	"The Education Review Office","The Inland Revenue Department","Land Information New Zealand","The Maori Trust Office","The Ministry of Agriculture and Forestry",
-	"The Ministry for Culture and Heritage","The Ministry of Defence","The Ministry of Economic Development","The Ministry of Education","The Ministry for the Environment",
-	"The Ministry of Fisheries","The Ministry of Foreign Affairs and Trade","The Ministry of Health","Ministry of Justice","The Ministry of Maori Development",
-	"The Ministry of Pacific Island Affairs","The Ministry of Research","The Ministry of Transport","The Ministry of Women\&#039;s Affairs","The National Library Department",
-	"The National Provident Fund Department","The New Zealand Customs Service","The New Zealand Defence Force","New Zealand Food Safety Authority","The Office of the State Services Commission",
-	"The Parliamentary Counsel Office","The Serious Fraud Office","The Ministry of Social Development","Statistics New Zealand","The Treasury", "Not Listed");
-	output_option_group($options, $dekoboko_required['department']);
-	?>
-	</select>
+    <label for="dekoboko_department">Department/CRI/Local Body*</label><br />
+    <input type="text" name="dekoboko_required[department]" id="dekoboko_department" value="<?php echo $dekoboko_required['department']; ?>" size="80" />
 </li>
 	
 <li>
@@ -116,6 +104,7 @@
 <?php output_optional_text_field("csv_url","Link to CSV File (or webpage containing the download/info)", 80) ?>
 <?php output_optional_text_field("kml_url","Link to KML File (or webpage containing the download/info)", 80) ?>
 <?php output_optional_text_field("geo_url","Link to file that can be read by GIS software (or webpage containing the download/info)", 80) ?>
+<?php output_optional_text_field("api_url","Link to information on the API", 80) ?>
 <?php output_optional_text_field("other_url","Link to other format file (or webpage containing the download/info)", 80) ?>
 
 <?php output_optional_text_field("web_address","Website URL for more information", 80) ?>

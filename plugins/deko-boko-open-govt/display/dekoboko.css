@@ -43,9 +43,9 @@
 
 #dekoboko_form label {
     float: left;
-    width: 100px;
+    width: 500px;
     margin-right: 5px;
-    text-align: right;
+    text-align: left;
 }
 
 /* for some reason FF3 needs the !important flags */
