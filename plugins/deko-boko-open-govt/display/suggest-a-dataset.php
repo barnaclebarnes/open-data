@@ -113,13 +113,16 @@
 <?php output_optional_text_field("contact_email","Email", 40) ?>
 
 <li>
-    <label for="dekoboko_cc_me">CC Me</label>
+    <label for="dekoboko_cc_me">CC Me</label><br />
     <input type="checkbox" name="dekoboko_optional[cc_me]" id="dekoboko_cc_me" value="Y"<?php if ($dekoboko_optional['cc_me'] == 'Y') echo ' checked="checked"'; ?> />
     <span style="font-size: x-small;">Check this box to send a copy of your message to yourself.</span>
 </li>
 
 <li><label for="recaptcha_challenge_field">Are You Human?<span class="dekoboko_required">*</span><br />
-    <span style="font-size: x-small;"><a href="http://recaptcha.net/popuphelp/" onclick="window.open('http://recaptcha.net/popuphelp/','name','height=600,width=500'); return false;" title="Help">What's this?</a></span></label>
+    	<span style="font-size: x-small;">
+			<a href="http://recaptcha.net/popuphelp/" onclick="window.open('http://recaptcha.net/popuphelp/','name','height=600,width=500'); return false;" title="Help">What's this?</a>
+		</span>
+	</label><br />
     <?php echo $recaptcha_html ?>
 </li>
 </ol>
