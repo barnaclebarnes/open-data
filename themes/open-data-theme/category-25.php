@@ -2,33 +2,48 @@
 <?php 
      $posts = query_posts($query_string . '&orderby=title&order=asc&posts_per_page=50');
 ?>
+
+<?php 
+	$cats = array(	85	=> "Office of Parliament",
+					87	=> 	"Public Service Department",
+					90	=> "State Sector",
+					75	=> 	"Autonomous Crown Entity",
+					84	=> 	"Non Public Service Department",
+					86	=> 	"Other PFA 4th Schedule organisation",
+					76	=> 	"City Council",
+					80	=> 	"District Council",
+					88	=> 	"Regional Council",
+					91	=> 	"Territorial Authority",
+					81	=> 	"District Health Board",
+					82	=> 	"Education",
+					77	=> 	"Conservation Sector Organisation",
+					78	=> 	"Crown Agent",
+					79	=> 	"Crown Research Institute",
+					83	=> 	"Independent Crown entity",
+					89	=> 	"State Owned Enterprise/Commercial Organisations",
+					92	=> 	"Trust",
+					93	=> 	"Wananga")
+?>
+
 	<div id="wide_content">
-		<h1 class="cat_header">List of Departments, Agencies, Crown Research Institutes and Councils</h1>
+		<h1 class="cat_header">List of Departments, Agencies, Crown Research Institutes, Councils and Other Government Organsations</h1>
 		<p>Click through to see what datasets we have listed for each entity.</p>
-	<?php if (have_posts()) : ?>
-			<?php $departments = $wpdb->get_results("select value, sl.label from " . $wpdb->prefix . "sppl_lookup as sl join  " . $wpdb->prefix . "sppl_fields as sf on sl.field_id = sf.field_id where field_name = 'department';", ARRAY_A); ?>
-			
-			<?php while (have_posts()) : the_post(); ?>
-				<?php 
-				 	$str = "SELECT * FROM  " . $wpdb->prefix . "supple_dataset WHERE post_id = " . $post->ID;
-					$dataset = $wpdb->get_row($str); 
-				?>
-				<h2><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
-			<?php endwhile; ?>
-			
-		
-		<div class="navigation">
-			<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-			<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-		</div>
-
-	<?php else : ?>
-
-		<h2 class="center">Not Found</h2>
-		<p class="center">Sorry, but you are looking for something that isn't here.</p>
-
-	<?php endif; ?>
-
+	  	<?php foreach ($cats as $cat_id => $title) :  ?>
+	  		<?php
+				$departments = $wpdb->get_results("select  p.post_title, p.ID " .
+												  "from " . $wpdb->prefix . "posts as p, " . $wpdb->prefix . "term_relationships as ts " .
+												  "where p.ID = ts.object_id " . 
+												  "and ts.term_taxonomy_id = " . $cat_id .
+												  " order by p.post_title ASC;", ARRAY_A); ?>
+  			<?php if($departments) : ?>
+				<h2 class="department"><?php echo $title ?></h2>
+				<ul>
+	  				<?php foreach($departments as $department) : ?>
+						<li><a href="<?php echo get_permalink($department[ID]) ?>"><?php echo $department[post_title]; ?></a></li>
+	  				<?php endforeach;?>
+				</ul>
+			<? endif ?>
+		<?php endforeach; ?>
 	</div>
 
 <?php get_footer(); ?>
