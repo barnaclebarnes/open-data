@@ -31,14 +31,14 @@
 	  	<?php foreach ($cats as $cat_id => $title) :  ?>
 	  		<?php
 				$sql = 		"select p.ID, p.post_title, sd.department, tr.term_taxonomy_id, ds_count.num_sets" .
-											" from (wp_posts as p," .
-											" wp_supple_dataset as sd," .
-											" wp_term_relationships as tr)" .
+											" from (" . $wpdb->prefix . "posts as p, " .
+											$wpdb->prefix . "supple_dataset as sd, " .
+											$wpdb->prefix . "term_relationships as tr)" .
 											" 	left outer join " . 
 											" (select 	sd.department, count(sd.department) as num_sets" .
-											" from wp_posts as p, " .
-											" wp_supple_dataset as sd," .
-											" wp_term_relationships as tr" .
+											" from " . $wpdb->prefix . "posts as p, " .
+											" " . $wpdb->prefix . "supple_dataset as sd," .
+											" " . $wpdb->prefix . "term_relationships as tr" .
 											" where p.ID = sd.post_id" .
 											" and 	p.ID = tr.object_id" .
 											" and	tr.term_taxonomy_id = 3" .
