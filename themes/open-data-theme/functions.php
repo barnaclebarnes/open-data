@@ -79,6 +79,39 @@ function output_label($value, $lookup) {
 	return $str;
 }
 
+function output_department($cat_id, $wpdb) {
+	$sql = "select p.ID, p.post_title, sd.department, tr.term_taxonomy_id, ds_count.num_sets" .
+								" from (" . $wpdb->prefix . "posts as p, " .
+								$wpdb->prefix . "supple_dataset as sd, " .
+								$wpdb->prefix . "term_relationships as tr)" .
+								" 	left outer join " . 
+								" (select 	sd.department, count(sd.department) as num_sets" .
+								" from " . $wpdb->prefix . "posts as p, " .
+								" " . $wpdb->prefix . "supple_dataset as sd," .
+								" " . $wpdb->prefix . "term_relationships as tr" .
+								" where p.ID = sd.post_id" .
+								" and 	p.ID = tr.object_id" .
+								" and	tr.term_taxonomy_id = 3" .
+								" group by sd.department) as ds_count " .
+								" on sd.department = ds_count.department " . 
+								" where p.ID = sd.post_id" .
+								" and p.ID = tr.object_id" .
+								" and	tr.term_taxonomy_id = " . $cat_id . 
+								" order by p.post_title ASC;";
+									
+		$departments = $wpdb->get_results($sql, ARRAY_A);
+	if($departments) : 
+		echo "<ul>";
+		foreach($departments as $department) : 
+			echo "<li>";
+			echo "<a href=\"" . get_permalink($department[ID]) ."\">" . $department[post_title] . "</a>";
+			if ($department[num_sets]) { echo '(' . $department[num_sets] . ' datasets)'; }; 
+			echo "</li>";
+		endforeach;
+		echo "</ul>";
+	endif;
+}
+
 
 $licenses
 ?>

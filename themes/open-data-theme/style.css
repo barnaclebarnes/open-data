@@ -472,3 +472,8 @@ h2.department {
 	font-weight:bold;
 	padding: 10px 0 10px 0;
 }
+h3.department {
+	font-size:17px;
+	font-weight:bold;
+	padding: 10px 0 10px 0;
+}
