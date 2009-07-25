@@ -1,7 +1,7 @@
 <?php
 /*
  
- $Id: sitemap-ui.php 123431 2009-06-07 00:17:10Z arnee $
+ $Id: sitemap-ui.php 128262 2009-06-21 22:35:14Z arnee $
 
 */
 
@@ -23,11 +23,6 @@ class GoogleSitemapGeneratorUI {
 		if(floatval($wp_version) >= 2.7) {
 			$this->mode = 27;
 		}
-	}
-	
-	function HtmlRegScripts() {
-	
-		
 	}
 	
 	function HtmlPrintBoxHeader($id, $title, $right = false) {

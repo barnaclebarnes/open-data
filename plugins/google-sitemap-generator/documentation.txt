@@ -198,7 +198,12 @@
                         Fixed bug that in localized WP installations priorities could not be saved.
                         The sitemap cron job is now cleared after a manual rebuild or after changing the config
                         Adjusted style of admin area for WP 2.8 and refreshed icons
-                        Disabled the "Exclude categories" feature for WP 2.5.1, since it doesn't have the required functions yet                        
+                        Disabled the "Exclude categories" feature for WP 2.5.1, since it doesn't have the required functions yet
+ 2009-06-22     3.1.4   Fixed bug which broke all pings in WP < 2.7
+                        Added more output in debug mode if pings fail
+                        Moved global post definitions for other plugins
+                        Added small icon for ozh admin menu
+                        Added more help links in UI
 
 
  Maybe Todo:

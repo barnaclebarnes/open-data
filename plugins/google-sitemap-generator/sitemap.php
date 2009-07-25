@@ -1,7 +1,7 @@
 <?php
 
 /*
- $Id: sitemap.php 123431 2009-06-07 00:17:10Z arnee $
+ $Id: sitemap.php 128262 2009-06-21 22:35:14Z arnee $
 
  Google XML Sitemaps Generator for WordPress
  ==============================================================================
@@ -25,7 +25,7 @@
  Plugin Name: Google XML Sitemaps
  Plugin URI: http://www.arnebrachhold.de/redir/sitemap-home/
  Description: This plugin will generate a sitemaps.org compatible sitemap of your WordPress blog which is supported by Ask.com, Google, MSN Search and YAHOO. <a href="options-general.php?page=sitemap.php">Configuration Page</a>
- Version: 3.1.3
+ Version: 3.1.4
  Author: Arne Brachhold
  Author URI: http://www.arnebrachhold.de/
 */
@@ -47,28 +47,31 @@ class GoogleSitemapGeneratorLoader {
 		
 		//Register the sitemap creator to wordpress...
 		add_action('admin_menu', array('GoogleSitemapGeneratorLoader', 'RegisterAdminPage'));
+		
+		//Nice icon for Admin Menu (requires Ozh Admin Drop Down Plugin)
+		add_filter('ozh_adminmenu_icon', array('GoogleSitemapGeneratorLoader', 'RegisterAdminIcon'));
+				
+		//Additional links on the plugin page
+		add_filter('plugin_row_meta', array('GoogleSitemapGeneratorLoader', 'RegisterPluginLinks'),10,2);
 
-		//Existing posts gets deleted
+		//Existing posts was deleted
 		add_action('delete_post', array('GoogleSitemapGeneratorLoader', 'CallCheckForAutoBuild'),9999,1);
 			
-		//Existing post gets published
+		//Existing post was published
 		add_action('publish_post', array('GoogleSitemapGeneratorLoader', 'CallCheckForAutoBuild'),9999,1);
 			
-		//Existing page gets published
+		//Existing page was published
 		add_action('publish_page', array('GoogleSitemapGeneratorLoader', 'CallCheckForAutoBuild'),9999,1);
 			
 		//WP Cron hook
 		add_action('sm_build_cron', array('GoogleSitemapGeneratorLoader', 'CallBuildSitemap'),1,0);
 		
-		//WP Cron hook
+		//Robots.txt request
 		add_action('do_robots', array('GoogleSitemapGeneratorLoader', 'CallDoRobots'),100,0);
 		
 		//Help topics for context sensitive help
 		add_filter('contextual_help_list', array('GoogleSitemapGeneratorLoader', 'CallHtmlShowHelpList'),9999,2);
 		
-		//Register javascripts if needed
-		add_filter('load-settings_page_sitemap', array('GoogleSitemapGeneratorLoader', 'CallHtmlRegScripts'),1,0);
-		 
 		//Check if this is a BUILD-NOW request (key will be checked later)
 		if(!empty($_GET["sm_command"]) && !empty($_GET["sm_key"])) {
 			GoogleSitemapGeneratorLoader::CallCheckForManualBuild();
@@ -81,8 +84,26 @@ class GoogleSitemapGeneratorLoader {
 	function RegisterAdminPage() {
 		
 		if (function_exists('add_options_page')) {
-			add_options_page(__('XML-Sitemap Generator','sitemap'), __('XML-Sitemap','sitemap'), 10, basename(__FILE__), array('GoogleSitemapGeneratorLoader','CallHtmlShowOptionsPage'));
+			add_options_page(__('XML-Sitemap Generator','sitemap'), __('XML-Sitemap','sitemap'), 10, 'sitemap.php', array('GoogleSitemapGeneratorLoader','CallHtmlShowOptionsPage'));
 		}
+	}
+	
+	function RegisterAdminIcon($hook) {
+		if ( $hook == 'sitemap.php' && function_exists('plugins_url')) {
+			return plugins_url('img/icon-arne.gif',GoogleSitemapGeneratorLoader::GetBaseName());
+		}
+		return $hook;
+	}
+	
+	function RegisterPluginLinks($links, $file) {
+		$base = GoogleSitemapGeneratorLoader::GetBaseName();
+		if ($file == $base) {
+			$links[] = '<a href="options-general.php?page=sitemap.php">' . __('Settings') . '</a>';
+			$links[] = '<a href="http://www.arnebrachhold.de/redir/sitemap-plist-faq/">' . __('FAQ') . '</a>';
+			$links[] = '<a href="http://www.arnebrachhold.de/redir/sitemap-plist-support/">' . __('Support') . '</a>';
+			$links[] = '<a href="http://www.arnebrachhold.de/redir/sitemap-plist-donate/">' . __('Donate') . '</a>';
+		}
+		return $links;
 	}
 	
 	/**
@@ -125,21 +146,12 @@ class GoogleSitemapGeneratorLoader {
 		}
 	}
 	
-	/**
-	 * Invokes the HtmlRegScripts method of the generator
-	 */
-	function CallHtmlRegScripts() {
-		if(GoogleSitemapGeneratorLoader::LoadPlugin()) {
-			$gs = GoogleSitemapGenerator::GetInstance();
-			$gs->HtmlRegScripts();
-		}
-	}
-	
+
 	function CallHtmlShowHelpList($filterVal,$screen) {
 		if($screen == "settings_page_sitemap") {
 			$links = array(
-				__('Plugin Homepage','sitemap')=>'http://www.arnebrachhold.de/redir/sitemap-home/',
-				__('Sitemap FAQ')=>'http://www.arnebrachhold.de/redir/sitemap-afaq/'
+				__('Plugin Homepage','sitemap')=>'http://www.arnebrachhold.de/redir/sitemap-help-home/',
+				__('Sitemap FAQ')=>'http://www.arnebrachhold.de/redir/sitemap-help-faq/'
 			);
 			
 			$filterVal["settings_page_sitemap"] = '';

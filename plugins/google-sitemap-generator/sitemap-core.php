@@ -1,7 +1,7 @@
 <?php
 /*
  
- $Id: sitemap-core.php 123431 2009-06-07 00:17:10Z arnee $
+ $Id: sitemap-core.php 128262 2009-06-21 22:35:14Z arnee $
 
 */
 
@@ -863,7 +863,7 @@ class GoogleSitemapGenerator {
 	/**
 	 * @var Version of the generator in SVN
 	*/
-	var $_svnVersion = '$Id: sitemap-core.php 123431 2009-06-07 00:17:10Z arnee $';
+	var $_svnVersion = '$Id: sitemap-core.php 128262 2009-06-21 22:35:14Z arnee $';
 	
 	/**
 	 * @var array The unserialized array with the stored options
@@ -1894,6 +1894,9 @@ class GoogleSitemapGenerator {
 					//Fill the cache with our DB result. Since it's incomplete (no text-content for example), we will clean it later.
 					$cache = array(&$post);
 					update_post_cache($cache);
+					
+					//Set the current working post for other plugins which depend on "the loop"
+					$GLOBALS['post'] = &$post;
 				
 					$permalink = get_permalink($post->ID);
 					if($permalink != $home) {
@@ -1905,8 +1908,6 @@ class GoogleSitemapGenerator {
 							$isPage = ($post->post_type == 'page');
 						}
 						
-						//Set the current working post
-						$GLOBALS['post'] = &$post;
 					
 						//Default Priority if auto calc is disabled
 						$prio = 0;
@@ -2186,6 +2187,7 @@ class GoogleSitemapGenerator {
 									  
 			if($pingres==NULL || $pingres===false) {
 				$status->EndGooglePing(false,$this->_lastError);
+				trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
 			} else {
 				$status->EndGooglePing(true);
 			}
@@ -2199,6 +2201,7 @@ class GoogleSitemapGenerator {
 									  
 			if($pingres==NULL || $pingres===false || strpos($pingres,"successfully received and added")===false) { //Ask.com returns 200 OK even if there was an error, so we need to check the content.
 				$status->EndAskPing(false,$this->_lastError);
+				trigger_error("Failed to ping Ask.com: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
 			} else {
 				$status->EndAskPing(true);
 			}
@@ -2211,19 +2214,21 @@ class GoogleSitemapGenerator {
 			$pingres=$this->RemoteOpen($sPingUrl);
 
 			if($pingres==NULL || $pingres===false || strpos(strtolower($pingres),"success")===false) {
+				trigger_error("Failed to ping YAHOO: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
 				$status->EndYahooPing(false,$this->_lastError);
 			} else {
 				$status->EndYahooPing(true);
 			}
 		}
 		
-		//Ping MSN
+		//Ping Bing
 		if($this->GetOption("b_pingmsn") && !empty($pingUrl)) {
 			$sPingUrl="http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
 			$status->StartMsnPing($sPingUrl);
 			$pingres=$this->RemoteOpen($sPingUrl);
 									  
 			if($pingres==NULL || $pingres===false || strpos($pingres,"Thanks for submitting your sitemap")===false) {
+				trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
 				$status->EndMsnPing(false,$this->_lastError);
 			} else {
 				$status->EndMsnPing(true);
@@ -2244,7 +2249,10 @@ class GoogleSitemapGenerator {
 		
 		//Before WP 2.7, wp_remote_fopen was quite crappy so Snoopy was favoured.
 		if(floatval($wp_version) < 2.7) {
-			if(!file_exists(ABSPATH . 'wp-includes/class-snoopy.php')) return false; //Hoah?
+			if(!file_exists(ABSPATH . 'wp-includes/class-snoopy.php')) {
+				trigger_error('Snoopy Web Request failed: Snoopy not found.',E_USER_NOTICE);
+				return false; //Hoah?
+			}
 			
 			require_once( ABSPATH . 'wp-includes/class-snoopy.php');
 			
@@ -2258,10 +2266,10 @@ class GoogleSitemapGenerator {
 				$s->submit($url,$postData);
 			}
 			
-			if($s->status == 200) {
-				$res = $s->results;
-			}
+			if($s->status != "200") trigger_error('Snoopy Web Request failed: Status: ' . $s->status . "; Content: " . htmlspecialchars($s->results),E_USER_NOTICE);
 			
+			return $s->results;
+	
 		} else {
 			
 			$options = array();
@@ -2272,9 +2280,13 @@ class GoogleSitemapGenerator {
 			} else {
 				$response = wp_remote_post($url, array_merge($options,array('body'=>$postData)));
 			}
-		
-			if ( is_wp_error( $response ) )
+			
+			if ( is_wp_error( $response ) ) {
+				$errs = $response->get_error_messages();
+				$errs = htmlspecialchars(implode('; ', $errs));
+				trigger_error('WP HTTP API Web Request failed: ' . $errs,E_USER_NOTICE);
 				return false;
+			}
 		
 			return $response['body'];
 		}
@@ -2438,14 +2450,6 @@ class GoogleSitemapGenerator {
 		
 		if(function_exists("admin_url")) return admin_url(basename($_SERVER["PHP_SELF"])) . "?page=" .  $page;
 		else return $_SERVER['PHP_SELF'] . "?page=" .  $page;
-	}
-	
-	function HtmlRegScripts() {
-		$ui = $this->GetUI();
-		if($ui) {
-			$ui->HtmlRegScripts();
-			return true;
-		}
 	}
 	
 	function HtmlShowOptionsPage() {
