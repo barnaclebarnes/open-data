@@ -9,9 +9,9 @@
 class GoogleStatsWidget extends WP_Widget
 {
 	function GoogleStatsWidget() {
-		$widget_ops = array('classname' => 'widget_google_stats', 'description' => __( "Displays Stat Info From Google Analytics") );
+		$widget_ops = array('classname' => 'widget_google_stats', 'description' => __("Displays Stat Info From Google Analytics", 'google-analyticator') );
 		$control_ops = array('width' => 400, 'height' => 400);
-		$this->WP_Widget('googlestats', __('Google Analytics Stats'), $widget_ops, $control_ops);
+		$this->WP_Widget('googlestats', __('Google Analytics Stats', 'google-analyticator'), $widget_ops, $control_ops);
 	}
 	
 	function widget($args, $instance) {
@@ -34,6 +34,7 @@ class GoogleStatsWidget extends WP_Widget
 			echo $before_title . $title . $after_title;
 		
 		# Make the stats chicklet
+		echo '<!-- Data gathered from last ' . number_format($timeFrame) . ' days using Google Analyticator -->';
 		$this->initiateBackground($pageBg, $font);
 		$this->beginWidget($font, $widgetBg);
 		$this->widgetInfo($this->getUniqueVisitors($acnt, $timeFrame), $line1, $line2, $innerBg, $font);
@@ -74,49 +75,44 @@ class GoogleStatsWidget extends WP_Widget
 		
 		$accounts = array();
 		
-		# Check if a username has been set
-		if ( get_option('google_stats_user') != '' ) {
+		# Get the class for interacting with the Google Analytics
+		require_once('class.analytics.stats.php');
+	
+		# Create a new Gdata call
+		$stats = new GoogleAnalyticsStats();
 		
-			# Get the class for interacting with the Google Analytics
-			require_once('class.analytics.stats.php');
-		
-			# Create a new Gdata call
-			$stats = new GoogleAnalyticsStats(stripslashes(get_option('google_stats_user')), stripslashes(get_option('google_stats_password')), true);
-			
-			# Check if Google sucessfully logged in
-			$login = $stats->checkLogin();
-		
-			# Get a list of accounts
-			$accounts = $stats->getAnalyticsAccounts();
-			
-		}
+		# Check if Google sucessfully logged in
+		$login = $stats->checkLogin();
+	
+		# Get a list of accounts
+		$accounts = $stats->getAnalyticsAccounts();
 		
 		# Output the options
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('title') . '">' . __('Title:') . ' <input style="width: 250px;" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . $title . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('title') . '">' . __('Title', 'google-analyticator') . ': <input style="width: 250px;" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . $title . '" /></label></p>';
 		# The list of accounts
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('account') . '">' . __('Analytics account: ');
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('account') . '">' . __('Analytics account', 'google-analyticator') . ': ';
 		echo '<select name="' . $this->get_field_name('account') . '" id="' . $this->get_field_id('account') . '" style="margin-top: -3px; margin-bottom: 10px;">';
 		if ( count($accounts) > 0 )
 			foreach ( $accounts AS $account ) { $select = ( $acnt == $account['id'] ) ? ' selected="selected"' : ''; echo '<option value="' . $account['id'] . '"' . $select . '>' . $account['title'] . '</option>'; }
 		elseif ( $login == false )
-			echo '<option value="">Wrong login. Set user/pass in settings.</option>';
+			echo '<option value="">' . __('Authenticate on settings page.', 'google-analyticator') . '</option>';
 		else
-			echo '<option value="">No Analytics accounts available.</option>';
+			echo '<option value="">' . __('No Analytics accounts available.', 'google-analyticator') . '</option>';
 		echo '</select></label></p>';
 		# Time frame
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('timeFrame') . '">' . __('Days of data to get:') . ' <input style="width: 150px;" id="' . $this->get_field_id('timeFrame') . '" name="' . $this->get_field_name('timeFrame') . '" type="text" value="' . $timeFrame . '" /></label></p>';		
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('timeFrame') . '">' . __('Days of data to get', 'google-analyticator') . ': <input style="width: 150px;" id="' . $this->get_field_id('timeFrame') . '" name="' . $this->get_field_name('timeFrame') . '" type="text" value="' . $timeFrame . '" /></label></p>';		
 		# Page background
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('pageBg') . '">' . __('Page background:') . ' <input style="width: 150px;" id="' . $this->get_field_id('pageBg') . '" name="' . $this->get_field_name('pageBg') . '" type="text" value="' . $pageBg . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('pageBg') . '">' . __('Page background', 'google-analyticator') . ': <input style="width: 150px;" id="' . $this->get_field_id('pageBg') . '" name="' . $this->get_field_name('pageBg') . '" type="text" value="' . $pageBg . '" /></label></p>';
 		# Widget background
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('widgetBg') . '">' . __('Widget background:') . ' <input style="width: 150px;" id="' . $this->get_field_id('widgetBg') . '" name="' . $this->get_field_name('widgetBg') . '" type="text" value="' . $widgetBg . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('widgetBg') . '">' . __('Widget background', 'google-analyticator') . ': <input style="width: 150px;" id="' . $this->get_field_id('widgetBg') . '" name="' . $this->get_field_name('widgetBg') . '" type="text" value="' . $widgetBg . '" /></label></p>';
 		# Inner background
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('innerBg') . '">' . __('Inner background:') . ' <input style="width: 150px;" id="' . $this->get_field_id('innerBg') . '" name="' . $this->get_field_name('innerBg') . '" type="text" value="' . $innerBg . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('innerBg') . '">' . __('Inner background', 'google-analyticator') . ': <input style="width: 150px;" id="' . $this->get_field_id('innerBg') . '" name="' . $this->get_field_name('innerBg') . '" type="text" value="' . $innerBg . '" /></label></p>';
 		# Font color
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('font') . '">' . __('Font color:') . ' <input style="width: 150px;" id="' . $this->get_field_id('font') . '" name="' . $this->get_field_name('font') . '" type="text" value="' . $font . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('font') . '">' . __('Font color', 'google-analyticator') . ': <input style="width: 150px;" id="' . $this->get_field_id('font') . '" name="' . $this->get_field_name('font') . '" type="text" value="' . $font . '" /></label></p>';
 		# Text line 1
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('line1') . '">' . __('Line 1 text:') . ' <input style="width: 200px;" id="' . $this->get_field_id('line1') . '" name="' . $this->get_field_name('line1') . '" type="text" value="' . $line1 . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('line1') . '">' . __('Line 1 text', 'google-analyticator') . ': <input style="width: 200px;" id="' . $this->get_field_id('line1') . '" name="' . $this->get_field_name('line1') . '" type="text" value="' . $line1 . '" /></label></p>';
 		# Text line 2
-		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('line2') . '">' . __('Line 2 text:') . ' <input style="width: 200px;" id="' . $this->get_field_id('line2') . '" name="' . $this->get_field_name('line2') . '" type="text" value="' . $line2 . '" /></label></p>';
+		echo '<p style="text-align:right;"><label for="' . $this->get_field_name('line2') . '">' . __('Line 2 text', 'google-analyticator') . ': <input style="width: 200px;" id="' . $this->get_field_id('line2') . '" name="' . $this->get_field_name('line2') . '" type="text" value="' . $line2 . '" /></label></p>';
 	}
 	
 	/**
@@ -130,7 +126,7 @@ class GoogleStatsWidget extends WP_Widget
 	function initiateBackground($page_background_color = 'FFF', $font_color = '000')
 	{
 		echo '<br />';
-		echo '<div style="background:#' . $page_background_color . ';font-size:12px;color:#' . $font_color . ';font-family:"Lucida Grande",Helvetica,Verdana,Sans-Serif;">';
+		echo '<div style="background:#' . $page_background_color . ';font-size:12px;color:#' . $font_color . ';font-family:\'Lucida Grande\',Helvetica,Verdana,Sans-Serif;">';
 	}
 
 	/**
@@ -142,7 +138,7 @@ class GoogleStatsWidget extends WP_Widget
 	 **/
 	function beginWidget($font_color = '000', $widget_background_color = 'FFF')
 	{
-		echo '<table style="width:auto!important;border-width:2px;border-color:#' . $font_color . ';border-style:solid;background:#' . $widget_background_color . ';"><tr">';
+		echo '<table style="width:auto!important;border-width:2px;border-color:#' . $font_color . ';border-style:solid;background:#' . $widget_background_color . ';"><tr>';
 	}
 
 	/**
@@ -178,7 +174,7 @@ class GoogleStatsWidget extends WP_Widget
 		echo '</tr></table>';
 
 		// The following is used to displayed the "Powered By Google Anayltics" text.
-		echo '<div style="font-size:9px;color:#666666;margin-top:0px;font-family:Verdana;">Powered By <a href="http://google.com/analytics/" alt="Google Analytics" style="text-decoration:none;"><img src="' . plugins_url('/google-analyticator/ga_logo.png') . '" alt="Google Analytics" style="border:0px;position:relative;top:4px;" /></a></div></div>';
+		echo '<div style="font-size:9px;color:#666666;margin-top:0px;font-family:Verdana;">Powered By <a href="http://google.com/analytics/" title="Google Analytics" style="text-decoration:none;"><img src="' . plugins_url('/google-analyticator/ga_logo.png') . '" alt="Google Analytics" style="border:0px;position:relative;top:4px;" /></a></div></div>';
 	}
 
 	/**
@@ -213,7 +209,7 @@ class GoogleStatsWidget extends WP_Widget
 		require_once('class.analytics.stats.php');
 
 		# Create a new Gdata call
-		$stats = new GoogleAnalyticsStats(stripslashes(get_option('google_stats_user')), stripslashes(get_option('google_stats_password')), true);
+		$stats = new GoogleAnalyticsStats();
 
 		# Set the account to the one requested
 		$stats->setAccount($account);
