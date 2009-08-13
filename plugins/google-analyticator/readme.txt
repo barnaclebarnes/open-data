@@ -3,8 +3,8 @@ Contributors: cavemonkey50, jesse_altman, spiralwebconsulting
 Donate link: http://plugins.spiralwebconsulting.com/analyticator.html#donate
 Tags: stats, statistics, google, analytics, google analytics, tracking, widget
 Requires at least: 2.7
-Tested up to: 2.8.1
-Stable tag: 5.1
+Tested up to: 2.8.3
+Stable tag: 5.3
 
 Adds the necessary JavaScript code to enable Google Analytics. Includes widgets for Analytics data display.
 
@@ -51,6 +51,24 @@ Please visit [Spiral Web Consulting's forum](http://plugins.spiralwebconsulting.
 6. An example of a front-end widget configuration.
 
 == Changelog ==
+
+= 5.3 =
+* Converts API data call to AJAX to reduce the memory needed on page loads.
+* Removes memory_limit alterations, since the default amount should be enough now.
+* Disables the summary dashboard widget for non-admins, as defined by the admin level setting on Google Analyticator's settings page.
+
+= 5.2.1 =
+* Corrects a potential html sanitation vulnerability with text retrieved from the Google Analytics API.
+
+= 5.2 =
+* Adds support for deauthorizing with Google Analytics.
+* Increases checks on the memory limit and now prevents the memory intensive functionality from running if there is insufficient memory.
+* Adds authentication compatibility modes for users having issues with cURL and PHP Streams.
+* Improves detection of Google Accounts that are not linked to Analytics accounts.
+* Improves detection of accounts without stats.
+* Cleans up the authentication URL, preventing the malformed URL error that Google would sometimes display.
+* Removes hosted Google accounts from Google's authentication page.
+* Adds an error message to the settings page if Google authentication fails.
 
 = 5.1 =
 * Fixes the broken/frozen error on the Dashboard introduced in Google Analyticator 5.0.

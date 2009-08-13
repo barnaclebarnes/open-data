@@ -26,17 +26,30 @@ class GoogleAnalyticsStats
 	 * @param token - a one-time use token to be exchanged for a real token
 	 **/
 	function GoogleAnalyticsStats($token = false)
-	{	
-		# Increase the memory limit to prevent blank page errors
-		ini_set('memory_limit', '64M');
-		
+	{		
 		# If we need to request a permanent token
 		if ( $token ) {
+			
+			# Check if we're deauthorizing an account
+			if ( $token == 'deauth' ) {
+				
+				# Get the current token
+				$this->token = get_option('ga_google_token');
+				
+				# Revoke the current token
+				$response = $this->http('https://www.google.com/accounts/AuthSubRevokeToken');
+				
+				# Remove the current token
+				update_option('ga_google_token', '');
+				
+				return '';
+				
+			}
 			
 			$this->token = $token;
 			
 			# Request authentication with Google
-			$response = $this->http('https://www.google.com/accounts/AuthSubSessionToken', $post);
+			$response = $this->http('https://www.google.com/accounts/AuthSubSessionToken');
 		
 			# Get the authentication token
 			$this->token = substr(strstr($response, "Token="), 6);
@@ -87,6 +100,14 @@ class GoogleAnalyticsStats
 		
 		# Disable the fopen transport since it doesn't work with the Google API
 		add_filter('use_fopen_transport', create_function('$a', 'return false;'));
+		
+		# Check compatibility mode settings
+		if ( get_option('ga_compatibility') == 'level1' ) {
+			add_filter('use_curl_transport', create_function('$a', 'return false;'));
+		} elseif ( get_option('ga_compatibility') == 'level2' ) {
+			add_filter('use_curl_transport', create_function('$a', 'return false;'));
+			add_filter('use_streams_transport', create_function('$a', 'return false;'));
+		}
 		
 		# Make the connection
 		if ( $post )

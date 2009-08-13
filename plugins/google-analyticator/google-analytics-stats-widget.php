@@ -75,6 +75,15 @@ class GoogleStatsWidget extends WP_Widget
 		
 		$accounts = array();
 		
+		# Get the current memory limit
+		$current_mem_limit = substr(ini_get('memory_limit'), 0, -1);
+
+		# Check if this limit is less than 96M, if so, increase it
+		if ( $current_mem_limit < 96 || $current_mem_limit == '' ) {
+			if ( function_exists('memory_get_usage') )
+				@ini_set('memory_limit', '96M');
+		}
+		
 		# Get the class for interacting with the Google Analytics
 		require_once('class.analytics.stats.php');
 	
@@ -204,6 +213,15 @@ class GoogleStatsWidget extends WP_Widget
 		}
 
 		# If here, the call has not been made or it is expired
+		
+		# Get the current memory limit
+		$current_mem_limit = substr(ini_get('memory_limit'), 0, -1);
+
+		# Check if this limit is less than 96M, if so, increase it
+		if ( $current_mem_limit < 96 || $current_mem_limit == '' ) {
+			if ( function_exists('memory_get_usage') )
+				@ini_set('memory_limit', '96M');
+		}
 
 		# Get the class for interacting with the Google Analytics
 		require_once('class.analytics.stats.php');

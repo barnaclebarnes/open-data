@@ -1,7 +1,7 @@
 <?php 
 /*
  * Plugin Name: Google Analyticator
- * Version: 5.1
+ * Version: 5.3
  * Plugin URI: http://plugins.spiralwebconsulting.com/analyticator.html
  * Description: Adds the necessary JavaScript code to enable <a href="http://www.google.com/analytics/">Google's Analytics</a>. After enabling this plugin visit <a href="options-general.php?page=google-analyticator.php">the settings page</a> and enter your Google Analytics' UID and enable logging.
  * Author: Spiral Web Consulting
@@ -9,7 +9,7 @@
  * Text Domain: google-analyticator
  */
 
-define('GOOGLE_ANALYTICATOR_VERSION', '5.1');
+define('GOOGLE_ANALYTICATOR_VERSION', '5.3');
 
 // Constants for enabled/disabled state
 define("ga_enabled", "enabled", true);
@@ -68,13 +68,14 @@ add_option(key_ga_footer, ga_footer_default, 'If Google Analyticator is outputti
 add_option(key_ga_specify_http, ga_specify_http_default, 'Automatically detect the http/https settings');
 add_option(key_ga_widgets, ga_widgets_default, 'If the widgets are enabled or disabled');
 add_option('ga_google_token', '', 'The token used to authenticate with Google');
+add_option('ga_compatibility', 'off', 'Transport compatibility options');
 
 # Check if we have a version of WordPress greater than 2.8
 if ( function_exists('register_widget') ) {
 	
 	# Check if widgets are enabled
 	if ( get_option(key_ga_widgets) == 'enabled' ) {
-
+			
 		# Include Google Analytics Stats widget
 		require_once('google-analytics-stats-widget.php');
 
@@ -121,7 +122,10 @@ add_action('init', 'ga_outgoing_links');
 
 // Hook in the options page function
 function add_ga_option_page() {
-	add_options_page(__('Google Analyticator Settings', 'google-analyticator'), 'Google Analytics', 8, basename(__FILE__), 'ga_options_page');
+	$plugin_page = add_options_page(__('Google Analyticator Settings', 'google-analyticator'), 'Google Analytics', 8, basename(__FILE__), 'ga_options_page');
+	
+	# Include javascript on the GA settings page
+	add_action('admin_head-' . $plugin_page, 'ga_admin_ajax');
 }
 
 add_action('plugin_action_links_' . plugin_basename(__FILE__), 'ga_filter_plugin_actions');
@@ -242,6 +246,12 @@ function ga_options_page() {
 			if (($ga_widgets != ga_enabled) && ($ga_widgets != ga_disabled))
 				$ga_widgets = ga_widgets_default;
 			update_option(key_ga_widgets, $ga_widgets);
+			
+			// Update the compatibility options
+			$ga_compatibility = $_POST['ga_compatibility'];
+			if ( $ga_compatibility == '' )
+				$ga_compatibility = 'off';
+			update_option('ga_compatibility', $ga_compatibility);
 
 			// Give an updated message
 			echo "<div class='updated fade'><p><strong>" . __('Google Analyticator settings saved.', 'google-analyticator') . "</strong></p></div>";
@@ -305,67 +315,44 @@ function ga_options_page() {
 					</td>
 				</tr>
 				<?php
-				# Check if we have a version of WordPress greater than 2.8
+				# Check if we have a version of WordPress greater than 2.8, and check if we have the memory to use the api
 				if ( function_exists('register_widget') ) {
-				?>
-				<?php
-					# Get the list of accounts if available
-					$ga_accounts = ga_get_analytics_accounts();
 				?>
 				<tr>
 					<th width="30%" valign="top" style="padding-top: 10px;">
 						<label><?php _e('Authenticate with Google', 'google-analyticator'); ?>:</label>
 					</th>
 					<td>
-						<?php if ( trim(get_option('ga_google_token')) == '' ) { ?>
-							<p style="margin-top: 7px;"><a href="https://www.google.com/accounts/AuthSubRequest?next=<?php echo urlencode(admin_url('/options-general.php?page=google-analyticator.php')); ?>&amp;scope=https://www.google.com/analytics/feeds/&amp;secure=0&amp;session=1"><?php _e('Click here to login to Google, thus authenticating Google Analyticator with your Analytics account.', 'google-analyticator'); ?></a></p>
+						<?php if ( ( trim(get_option('ga_google_token')) == '' && !isset($_GET['token']) ) || ( isset($_GET['token']) && $_GET['token'] == 'deauth' ) ) { ?>
+							<p style="margin-top: 7px;"><a href="https://www.google.com/accounts/AuthSubRequest?<?php echo http_build_query(array(		'next' => admin_url('/options-general.php?page=google-analyticator.php'),
+							'scope' => 'https://www.google.com/analytics/feeds/',
+							'secure' => 0,
+							'session' => 1,
+							'hd' => 'default'
+								)); ?>"><?php _e('Click here to login to Google, thus authenticating Google Analyticator with your Analytics account.', 'google-analyticator'); ?></a></p>
 						<?php } else { ?>
-							<p style="margin-top: 7px;"><?php _e('Currently authenticated with Google.', 'google-analyticator'); ?> <a href="https://www.google.com/accounts/AuthSubRequest?next=<?php echo urlencode(admin_url('/options-general.php?page=google-analyticator.php')); ?>&amp;scope=https://www.google.com/analytics/feeds/&amp;secure=0&amp;session=1"><?php _e('Click here to authenticate again.', 'google-analyticator'); ?></a></p>
+							<p style="margin-top: 7px;"><?php _e('Currently authenticated with Google.', 'google-analyticator'); ?> <a href="<?php echo admin_url('/options-general.php?page=google-analyticator.php&token=deauth'); ?>"><?php _e('Deauthorize Google Analyticator.', 'google-analyticator'); ?></a></p>
+							<?php if ( isset($_GET['token']) && $_GET['token'] != 'deauth' ) { ?>
+								<p style="color: red; display: none;" id="ga_connect_error"><?php _e('Failed to authenticate with Google. Try using the compatibility options at the bottom of this page. If you are still unable to authenticate, contact your host, informing them you are experiencing errors with outbound SSL connections.', 'google-analyticator'); ?></p>
+							<?php } ?>
 						<?php } ?>
 						<p style="margin: 5px 10px;" class="setting-description"><?php _e('Clicking the above link will authenticate Google Analyticator with Google. Authentication with Google is needed for use with the stats widget. In addition, authenticating will enable you to select your Analytics account through a drop-down instead of searching for your UID. If you are not going to use the stat widget, <strong>authenticating with Google is optional</strong>.', 'google-analyticator'); ?></p>
 					</td>
 				</tr>
-				<?php } else { $ga_accounts = false; } ?>
-				<tr>
-					<?php
-					
-					# If we have a accounts, create a list, if not, use input box
-					if ( $ga_accounts !== false ) :
-					?>
-						<th valign="top" style="padding-top: 10px;">
-							<label for="<?php echo key_ga_uid; ?>"><?php _e('Google Analytics account', 'google-analyticator'); ?>:</label>
-						</th>
-						<td>
-							<?php
-							# Create a select box	
-							echo '<select name="' . key_ga_uid . '" id="' . key_ga_uid . '">';
-							echo '<option value="XX-XXXXX-X">' . __('Select an Account', 'google-analyticator') . '</option>';
-						
-							# The list of accounts
-							foreach ( $ga_accounts AS $account ) {
-								$select = ( get_option(key_ga_uid) == $account['ga:webPropertyId'] ) ? ' selected="selected"' : '';
-								echo '<option value="' . $account['ga:webPropertyId'] . '"' . $select . '>' . $account['title'] . '</option>';
-							}
-						
-							# Close the select box
-							echo '</select>';
-							?>
-							<p style="margin: 5px 10px;" class="setting-description"><?php _e('Select the Analytics account you wish to enable tracking for. An account must be selected for tracking to occur.', 'google-analyticator'); ?></p>
-						</td>
-					<?php else: ?>
-						<th valign="top" style="padding-top: 10px;">
-							<label for="<?php echo key_ga_uid; ?>"><?php _e('Google Analytics UID', 'google-analyticator'); ?>:</label>
-						</th>
-						<td>
-							<?php
-							echo "<input type='text' size='50' ";
-							echo "name='".key_ga_uid."' ";
-							echo "id='".key_ga_uid."' ";
-							echo "value='".get_option(key_ga_uid)."' />\n";
-							?>
-							<p style="margin: 5px 10px;" class="setting-description"><?php _e('Enter your Google Analytics\' UID in this box (<a href="http://plugins.spiralwebconsulting.com/forums/viewtopic.php?f=5&amp;t=6">where can I find my UID?</a>). The UID is needed for Google Analytics to log your website stats.', 'google-analyticator'); ?> <strong><?php if ( function_exists('register_widget') ) _e('If you are having trouble finding your UID, authenticate with Google in the above field. After returning from Google, you will be able to select your account through a drop-down box.', 'google-analyticator'); ?></strong></p>
-						</td>
-					<?php endif; ?>
+				<?php } ?>
+				<tr id="ga_ajax_accounts">
+					<th valign="top" style="padding-top: 10px;">
+						<label for="<?php echo key_ga_uid; ?>"><?php _e('Google Analytics UID', 'google-analyticator'); ?>:</label>
+					</th>
+					<td>
+						<?php
+						echo "<input type='text' size='50' ";
+						echo "name='".key_ga_uid."' ";
+						echo "id='".key_ga_uid."' ";
+						echo "value='".get_option(key_ga_uid)."' />\n";
+						?>
+						<p style="margin: 5px 10px;" class="setting-description"><?php _e('Enter your Google Analytics\' UID in this box (<a href="http://plugins.spiralwebconsulting.com/forums/viewtopic.php?f=5&amp;t=6">where can I find my UID?</a>). The UID is needed for Google Analytics to log your website stats.', 'google-analyticator'); ?> <strong><?php if ( function_exists('register_widget') ) _e('If you are having trouble finding your UID, authenticate with Google in the above field. After returning from Google, you will be able to select your account through a drop-down box.', 'google-analyticator'); ?></strong></p>
+					</td>
 				</tr>
 			</table>
 			<h3><?php _e('Advanced Settings', 'google-analyticator'); ?></h3>
@@ -551,7 +538,7 @@ function ga_options_page() {
 						<?php
 						echo "<input type='text' size='50' ";
 						echo "name='".key_ga_downloads_prefix."' ";
-						echo "id='".key_ga_download_sprefix."' ";
+						echo "id='".key_ga_downloads_prefix."' ";
 						echo "value='".stripslashes(get_option(key_ga_downloads_prefix))."' />\n";
 						?>
 						<p style="margin: 5px 10px;" class="setting-description"><?php _e('Enter a name for the section tracked download links will appear under. This option has no effect if event tracking is enabled.', 'google-analyticator'); ?></em></p>
@@ -654,6 +641,34 @@ function ga_options_page() {
 						<p style="margin: 5px 10px;" class="setting-description"><?php _e('Disabling this option will completely remove the Dashboard Summary widget and the theme Stats widget. Use this option if you would prefer to not see the widgets.', 'google-analyticator'); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th width="30%" valign="top" style="padding-top: 10px;">
+						<label for="ga_compatibility"><?php _e('Authentication compatibility', 'google-analyticator'); ?>:</label>
+					</th>
+					<td>
+						<?php
+						echo "<select name='ga_compatibility' id='ga_compatibility'>\n";
+						
+						echo "<option value='off'";
+						if(get_option('ga_compatibility') == 'off')
+							echo " selected='selected'";
+						echo ">" . __('Off', 'google-analyticator') . "</option>\n";
+						
+						echo "<option value='level1'";
+						if(get_option('ga_compatibility') == 'level1')
+							echo " selected='selected'";
+						echo ">" . __('Disable cURL', 'google-analyticator') . "</option>\n";
+						
+						echo "<option value='level2'";
+						if(get_option('ga_compatibility') == 'level2')
+							echo " selected='selected'";
+						echo ">" . __('Disable cURL and PHP Streams', 'google-analyticator') . "</option>\n";
+						
+						echo "</select>\n";
+						?>
+						<p style="margin: 5px 10px;" class="setting-description"><?php _e('If you\'re having trouble authenticating with Google for use with the stats widgets, try setting these compatibility modes. Try disabling cURL first and re-authenticate. If that fails, try disabling cURL and PHP Streams.', 'google-analyticator'); ?></p>
+					</td>
+				</tr>
 				<?php } ?>
 				</table>
 			<p class="submit">
@@ -664,6 +679,83 @@ function ga_options_page() {
 		</form>
 
 <?php
+}
+
+/**
+ * Adds AJAX to the GA settings page
+ **/
+function ga_admin_ajax()
+{
+	?>
+	<script type="text/javascript">
+	
+		jQuery(document).ready(function(){
+			
+			// Grab the widget data
+			jQuery.ajax({
+				type: 'post',
+				url: 'admin-ajax.php',
+				data: {
+					action: 'ga_ajax_accounts',
+					_ajax_nonce: '<?php echo wp_create_nonce("ga_ajax_accounts"); ?>'<?php if ( isset($_GET['token']) ) { ?>,
+					token: '<?php echo $_GET["token"]; ?>'
+					<?php } ?>
+				},
+				success: function(html) {
+					if ( html != '' )
+						jQuery('#ga_ajax_accounts').html(html);
+					else
+						jQuery('#ga_connect_error').show();
+				}
+			});
+		
+		});
+	
+	</script>
+	<?php
+}
+
+# Look for the ajax list call
+add_action('wp_ajax_ga_ajax_accounts', 'ga_ajax_accounts');
+
+/**
+ * An AJAX function to get a list of accounts in a drop down
+ **/
+function ga_ajax_accounts()
+{
+	# Check the ajax widget
+	check_ajax_referer('ga_ajax_accounts');
+	
+	# Get the list of accounts if available
+	$ga_accounts = ga_get_analytics_accounts();
+	
+	if ( $ga_accounts !== false ) {
+	?>
+	
+	<th valign="top" style="padding-top: 10px;">
+		<label for="<?php echo key_ga_uid; ?>"><?php _e('Google Analytics account', 'google-analyticator'); ?>:</label>
+	</th>
+	<td>
+		<?php
+		# Create a select box	
+		echo '<select name="' . key_ga_uid . '" id="' . key_ga_uid . '">';
+		echo '<option value="XX-XXXXX-X">' . __('Select an Account', 'google-analyticator') . '</option>';
+	
+		# The list of accounts
+		foreach ( $ga_accounts AS $account ) {
+			$select = ( get_option(key_ga_uid) == $account['ga:webPropertyId'] ) ? ' selected="selected"' : '';
+			echo '<option value="' . $account['ga:webPropertyId'] . '"' . $select . '>' . $account['title'] . '</option>';
+		}
+	
+		# Close the select box
+		echo '</select>';
+		?>
+		<p style="margin: 5px 10px;" class="setting-description"><?php _e('Select the Analytics account you wish to enable tracking for. An account must be selected for tracking to occur.', 'google-analyticator'); ?></p>
+	</td>
+	
+	<?php
+	}
+	die();
 }
 
 /**
@@ -679,10 +771,12 @@ function ga_get_analytics_accounts()
 	require_once('class.analytics.stats.php');
 	
 	# Create a new Gdata call
-	if ( isset($_GET['token']) )
-		$stats = new GoogleAnalyticsStats($_GET['token']);
-	else
+	if ( isset($_POST['token']) && $_POST['token'] != '' )
+		$stats = new GoogleAnalyticsStats($_POST['token']);
+	elseif ( trim(get_option('ga_google_token')) != '' )
 		$stats = new GoogleAnalyticsStats();
+	else
+		return false;
 		
 	# Check if Google sucessfully logged in
 	if ( ! $stats->checkLogin() )
@@ -696,6 +790,30 @@ function ga_get_analytics_accounts()
 		return $accounts;
 	else
 		return false;
+}
+
+/**
+ * Add http_build_query if it doesn't exist already
+ **/
+if ( !function_exists('http_build_query') ) {
+	function http_build_query($params, $key = null)
+	{
+		$ret = array();
+		
+		foreach( (array) $params as $name => $val ) {
+			$name = urlencode($name);
+			
+			if ( $key !== null )
+				$name = $key . "[" . $name . "]";
+			
+			if ( is_array($val) || is_object($val) )
+				$ret[] = http_build_query($val, $name);
+			elseif ($val !== null)
+				$ret[] = $name . "=" . urlencode($val);
+		}
+        
+		return implode("&", $ret);
+	}
 }
 
 // Add the script

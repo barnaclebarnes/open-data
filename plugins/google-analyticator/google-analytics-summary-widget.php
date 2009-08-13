@@ -18,6 +18,7 @@ class GoogleAnalyticsSummary
 		add_action('wp_dashboard_setup', array($this, 'addDashboardWidget'));
 		add_action('admin_print_scripts-index.php', array($this, 'addJavascript'));
 		add_action('admin_head-index.php', array($this, 'addTopJs'));
+		add_action('wp_ajax_ga_stats_widget', array($this, 'ajaxWidget'));
 	}
 	
 	/**
@@ -25,11 +26,10 @@ class GoogleAnalyticsSummary
 	 **/
 	function addDashboardWidget()
 	{
-		# Attempt to login and get the current account
-		$this->id = $this->getAnalyticsAccount();
-		$this->api->setAccount($this->id);
-		
-		wp_add_dashboard_widget('google-analytics-summary', 'Google Analytics Summary', array($this, 'widget'));
+		# Check if the user is an admin
+		if ( current_user_can('level_' . get_option(key_ga_admin_level)) ) {
+			wp_add_dashboard_widget('google-analytics-summary', __('Google Analytics Summary', 'google-analyticator'), array($this, 'widget'));
+		}
 	}
 	
 	/**
@@ -51,17 +51,34 @@ class GoogleAnalyticsSummary
 		
 			jQuery(document).ready(function(){
 				
-				if ( navigator.appName != 'Microsoft Internet Explorer' ) {
-			
-					jQuery('.ga_visits').sparkline(ga_visits, { type:'line', width:'100%', height:'75px', lineColor:'#aaa', fillColor:'#f0f0f0', spotColor:false, minSpotColor:false, maxSpotColor:false, chartRangeMin:0 });
-				
-				} else {
-					
-					// Hide the widget graph
-					jQuery('.ga_visits_title').remove();
-					jQuery('.ga_visits').remove();
-					
-				}
+				// Grab the widget data
+				jQuery.ajax({
+					type: 'post',
+					url: 'admin-ajax.php',
+					data: {
+						action: 'ga_stats_widget',
+						_ajax_nonce: '<?php echo wp_create_nonce("ga_stats_widget"); ?>'
+					},
+					success: function(html) {
+						// Hide the loading message
+						jQuery('#google-analytics-summary .inside').hide();
+						
+						// Place the widget data in the area
+						jQuery('#google-analytics-summary .inside').html(html);
+						
+						// Display the widget data
+						jQuery('#google-analytics-summary .inside').slideDown();
+						
+						// Handle displaying the graph
+						if ( navigator.appName != 'Microsoft Internet Explorer' ) {
+							jQuery('.ga_visits').sparkline(ga_visits, { type:'line', width:'100%', height:'75px', lineColor:'#aaa', fillColor:'#f0f0f0', spotColor:false, minSpotColor:false, maxSpotColor:false, chartRangeMin:0 });
+						} else {
+							// Hide the widget graph
+							jQuery('.ga_visits_title').remove();
+							jQuery('.ga_visits').remove();
+						}
+					}
+				});
 			
 			});
 		
@@ -74,19 +91,34 @@ class GoogleAnalyticsSummary
 	 **/
 	function widget()
 	{
+		echo '<small>' . __('Loading') . '...</small>';
+	}
+	
+	/**
+	 * AJAX data for the widget
+	 **/
+	function ajaxWidget()
+	{
+		# Check the ajax widget
+		check_ajax_referer('ga_stats_widget');
+		
+		# Attempt to login and get the current account
+		$this->id = $this->getAnalyticsAccount();
+		$this->api->setAccount($this->id);
+		
 		# Check that we can display the widget before continuing
 		if ( $this->id == false ) {
 			# Output error message
-			echo '<p>' . __('No Analytics account selected. Double check you are authenticated with Google on Google Analyticator\'s settings page and make sure an account is selected.', 'google-analyticator') . '</p>';
-			
+			echo '<p style="margin: 0;">' . __('No Analytics account selected. Double check you are authenticated with Google on Google Analyticator\'s settings page and make sure an account is selected.', 'google-analyticator') . '</p>';
+
 			# Add Javascript variable to prevent breaking the Javascript
 			echo '<script type="text/javascript">var ga_visits = [];</script>';
-			
-			return false;
+
+			die();
 		}
 		
 		# Add the header information for the visits graph
-		echo '<p class="ga_visits_title" style="font-style: italic; font-family: Georgia, \'Times New Roman\', \'Bitstream Charter\', Times, serif; margin-top: -5px; color: #777; font-size: 13px;">' . __('Visits Over the Past 30 Days', 'google-analyticator') . '</p>';
+		echo '<p class="ga_visits_title" style="font-style: italic; font-family: Georgia, \'Times New Roman\', \'Bitstream Charter\', Times, serif; margin-top: 0px; color: #777; font-size: 13px;">' . __('Visits Over the Past 30 Days', 'google-analyticator') . '</p>';
 		
 		# Add the sparkline for the past 30 days
 		$this->getVisitsGraph();
@@ -123,6 +155,8 @@ class GoogleAnalyticsSummary
 		
 		# Close the table
 		echo '</td></tr></table>';
+		
+		die();
 	}
 	
 	/**
@@ -146,6 +180,10 @@ class GoogleAnalyticsSummary
 
 		# Get a list of accounts
 		$accounts = $this->api->getAnalyticsAccounts();
+		
+		# Check if we actually have accounts
+		if ( !is_array($accounts) )
+			return false;
 		
 		# Check if we have a list of accounts
 		if ( count($accounts) <= 0 )
@@ -200,16 +238,30 @@ class GoogleAnalyticsSummary
 		# Create a list of the data points for graphing
 		$data = '';
 		$max = 0;
-		foreach ( $stats AS $stat ) {
-			$data .= $stat['ga:visits'] . ',';
+		
+		# Check the size of the stats array
+		if ( !isset($stats) || !is_array($stats) || count($stats) <= 0 ) {
+			$data = '0,0';
+		} else {
+			foreach ( $stats AS $stat ) {
+				# Verify the number is numeric
+				if ( is_numeric($stat['ga:visits']) )
+					$data .= $stat['ga:visits'] . ',';
+				else
+					$data .= '0,';
 			
-			# Update the max value if greater
-			if ( $max < $stat['ga:visits'] )
-				$max = $stat['ga:visits'];
+				# Update the max value if greater
+				if ( $max < $stat['ga:visits'] )
+					$max = $stat['ga:visits'];
+			}
+			
+			# Shorten the string to remove the last comma
+			$data = substr($data, 0, -1);
 		}
 		
-		# Shorten the string to remove the last comma
-		$data = substr($data, 0, -1);
+		# Add a fake stat if need be
+		if ( !isset($stat['ga:visits']) )
+			$stat['ga:visits'] = 0;
 		
 		# Output the graph
 		echo '<script type="text/javascript">var ga_visits = [' . $data . '];</script>';
@@ -326,15 +378,15 @@ class GoogleAnalyticsSummary
 		}
 		
 		# Check the size of the stats array
-		if ( count($stats) <= 0 ) {
-			echo '<p>' . __('There is no data for view.') . '</p>';
+		if ( count($stats) <= 0 || !is_array($stats) ) {
+			echo '<p>' . __('There is no data for view.', 'google-analyticator') . '</p>';
 		} else {
 			# Build the top pages list
 			echo '<ol>';
 			
 			# Loop through each stat
 			foreach ( $stats AS $stat ) {
-				echo '<li><a href="' . $stat['ga:pagePath'] . '">' . $stat['ga:pageTitle'] . '</a> - ' . number_format($stat['ga:pageviews']) . ' ' . __('Views', 'google-analyticator') . '</li>';
+				echo '<li><a href="' . esc_html($stat['ga:pagePath']) . '">' . $stat['ga:pageTitle'] . '</a> - ' . number_format($stat['ga:pageviews']) . ' ' . __('Views', 'google-analyticator') . '</li>';
 			}
 			
 			# Finish the list
@@ -377,15 +429,15 @@ class GoogleAnalyticsSummary
 		}
 		
 		# Check the size of the stats array
-		if ( count($stats) <= 0 ) {
-			echo '<p>' . __('There is no data for view.') . '</p>';
+		if ( count($stats) <= 0 || !is_array($stats) ) {
+			echo '<p>' . __('There is no data for view.', 'google-analyticator') . '</p>';
 		} else {
 			# Build the top pages list
 			echo '<ol>';
 		
 			# Loop through each stat
 			foreach ( $stats AS $stat ) {
-				echo '<li><strong>' . $stat['ga:source'] . '</strong> - ' . number_format($stat['ga:visits']) . ' ' . __('Visits', 'google-analyticator') . '</li>';
+				echo '<li><strong>' . esc_html($stat['ga:source']) . '</strong> - ' . number_format($stat['ga:visits']) . ' ' . __('Visits', 'google-analyticator') . '</li>';
 			}
 		
 			# Finish the list
@@ -428,15 +480,15 @@ class GoogleAnalyticsSummary
 		}
 		
 		# Check the size of the stats array
-		if ( count($stats) <= 0 ) {
-			echo '<p>' . __('There is no data for view.') . '</p>';
+		if ( count($stats) <= 0 || !is_array($stats) ) {
+			echo '<p>' . __('There is no data for view.', 'google-analyticator') . '</p>';
 		} else {
 			# Build the top pages list
 			echo '<ol>';
 		
 			# Loop through each stat
 			foreach ( $stats AS $stat ) {
-				echo '<li><strong>' . $stat['ga:keyword'] . '</strong> - ' . number_format($stat['ga:visits']) . ' ' . __('Visits', 'google-analyticator') . '</li>';
+				echo '<li><strong>' . esc_html($stat['ga:keyword']) . '</strong> - ' . number_format($stat['ga:visits']) . ' ' . __('Visits', 'google-analyticator') . '</li>';
 			}
 		
 			# Finish the list
